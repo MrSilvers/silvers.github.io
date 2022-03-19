@@ -1,0 +1,906 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="silvers' blog">
+      
+      
+        <meta name="author" content="silvers">
+      
+      
+        <link rel="canonical" href="http://www.silvers.xyz/blog/%E8%AE%A1%E7%AE%97%E6%9C%BA/Django%E7%9A%84ORM/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.1">
+    
+    
+      
+        <title>Django的ORM使用 - silvers' blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e8d9bf0c.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../resources/css/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#djangoorm" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="silvers&#39; blog" class="md-header__button md-logo" aria-label="silvers' blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            silvers' blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Django的ORM使用
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/MrSilvers" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="silvers&#39; blog" class="md-nav__button md-logo" aria-label="silvers' blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    silvers' blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/MrSilvers" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        专栏
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idea/" class="md-nav__link">
+        想法
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../life/" class="md-nav__link">
+        生活
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../aboutme/" class="md-nav__link">
+        关于我
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#djangomvtorm" class="md-nav__link">
+    一、Django（MVT）的ORM介绍
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#orm" class="md-nav__link">
+    二、ORM的优势
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#django-orm" class="md-nav__link">
+    三、Django ORM的劣势
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#models" class="md-nav__link">
+    四、models的常用方法
+  </a>
+  
+    <nav class="md-nav" aria-label="四、models的常用方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    4.1 查询数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    4.2 增加数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    4.3 删除数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    4.4 修改数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-qf" class="md-nav__link">
+    4.5 使用Q和F
+  </a>
+  
+    <nav class="md-nav" aria-label="4.5 使用Q和F">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#451-f" class="md-nav__link">
+    4.5.1 F()的作用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#452-q" class="md-nav__link">
+    4.5.2 Q()的作用
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46" class="md-nav__link">
+    4.6 属性类型介绍
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47" class="md-nav__link">
+    4.7 属性类型的常见关键字参数介绍
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#48-filter" class="md-nav__link">
+    4.8 filter等查询方法参数的命名修饰介绍
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#49-models-objectsjson" class="md-nav__link">
+    4.9 把models-objects转成json格式
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#models_1" class="md-nav__link">
+    五、models的注意要点
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#djangosql" class="md-nav__link">
+    六、Django中使用原生SQL操作数据库
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+<h1 id="djangoorm">Django的ORM使用<a class="headerlink" href="#djangoorm" title="Permanent link">&para;</a></h1>
+<h2 id="djangomvtorm">一、Django（MVT）的ORM介绍<a class="headerlink" href="#djangomvtorm" title="Permanent link">&para;</a></h2>
+<ol>
+<li>ORM 全拼Object-Relation Mapping.</li>
+<li>中文意为 对象-关系映射.</li>
+<li>在MVC/MVT设计模式中的Model模块中都包括ORM.</li>
+<li>通俗的说，一个模型（model）映射到一个数据库表，使用ORM把对表的操作变成对对象的操作.</li>
+<li>关系图  </li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>ORM</th>
+<th>数据库</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>类</td>
+<td>数据表</td>
+</tr>
+<tr>
+<td>对象</td>
+<td>数据行</td>
+</tr>
+<tr>
+<td>属性</td>
+<td>字段</td>
+</tr>
+</tbody>
+</table>
+<h2 id="orm">二、ORM的优势<a class="headerlink" href="#orm" title="Permanent link">&para;</a></h2>
+<ol>
+<li>只需要面向对象编程, 不需要面向数据库编写代码.</li>
+<li>对数据库的操作都转化成对类属性和方法的操作.</li>
+<li>不用编写各种数据库的sql语句.</li>
+<li>实现了数据模型与数据库的解耦, 屏蔽了不同数据库操作上的差异.</li>
+<li>不用关注用的是mysql、oracle...等，通过简单的配置就可以轻松更换数据库, 而不需要修改代码.</li>
+</ol>
+<h2 id="django-orm">三、Django ORM的劣势<a class="headerlink" href="#django-orm" title="Permanent link">&para;</a></h2>
+<ol>
+<li>相比SQL来说，灵活度不够，限制强.</li>
+<li>根据对象的操作转换成SQL语句,根据查询的结果转化成对象, 在映射过程中有性能损失.</li>
+<li>ORM用多了SQL语句就忘了，关系数据库相关技能退化...</li>
+</ol>
+<h2 id="models">四、models的常用方法<a class="headerlink" href="#models" title="Permanent link">&para;</a></h2>
+<p>model定义：
+file:models.py</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+<span class="k">class</span> <span class="nc">Test</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+    <span class="n">age</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="41">4.1 查询数据<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
+<ul>
+<li>get方法：models.Test.objects.get(name="MiKe")</li>
+<li>filter方法：models.Test.objects.filter(name="Mike")</li>
+<li>all方法：models.Test.objects.all()</li>
+<li>exclude方法：models.Test.objects.exclude(name="Mike")</li>
+<li>first方法：返回第一条数据</li>
+<li>last方法：返回最后一条数据</li>
+<li>exist方法：查询是否有数据，有返回True</li>
+</ul>
+<p><strong>说明</strong>：</p>
+<ul>
+<li>get方法返回一个经过Django ORM封装的Test类的对象或者抛出异常(DoesNotExist) </li>
+<li>filter方法返回一个QuerySet或者'[]'(python3返回'&lt;QuerySet []>')</li>
+<li>all方法返回一个QuerySet</li>
+<li>exclude方法返回一个QuerySet</li>
+<li>QuerySet类型封装了filter、exclude、first、last、exists方法(也就是支持链式调用)</li>
+<li>filter、all、exclude方法都是惰性执行的，只会创建查询集，而不会之间访问数据库，只有调用数据的时候才会访问，查询过的结果集会进行缓存（可重用），再次调用时不会再访问数据库（tip：可以减少数据库的负荷）</li>
+</ul>
+<p>例子1：</p>
+<p><div class="highlight"><pre><span></span><code>&gt;&gt;&gt; <span class="nv">list</span> <span class="o">=</span> BookInfo.objects.all<span class="o">()</span>  <span class="c1"># 不访问数据库</span>
+&gt;&gt;&gt; print<span class="o">([</span>book.book_name <span class="k">for</span> book <span class="k">in</span> list<span class="o">[</span><span class="m">0</span>:2<span class="o">]])</span>  <span class="c1"># 访问数据库, 并缓存</span>
+&gt;&gt;&gt; print<span class="o">([</span>book.book_name <span class="k">for</span> book <span class="k">in</span> list<span class="o">[</span><span class="m">1</span>:3<span class="o">]])</span>  <span class="c1"># 先访问查询集缓存, 不在缓存去访问数据库</span>
+</code></pre></div>
+例子2：</p>
+<p><code>re = Book.objects.filter(price=80)</code>
+<code>re.exists() #会查询，但re不会被赋值，只有使用re变量的时候才会被赋值</code></p>
+<h3 id="42">4.2 增加数据<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<p>方法一：实例化一个对象</p>
+<p>a). test = Test(name='Mike')</p>
+<p>b). test.save()</p>
+<p>方法二：新建一个对象</p>
+<p>a). test = Test()</p>
+<p>b). test.name = 'Mike'</p>
+<p>c). test.save()</p>
+<p>方法三：create 或者 get_or_create方法</p>
+<p>a). models.Test.objects.create(name="Mike")</p>
+<p>b). models.Test.objects.get_or_create(name="Mike")</p>
+<p>tip：使用第二种方法可以防止插入相同的数据</p>
+<p>适用情景：一个年级有多个学生，我们需要增加某个年级的学生（不考虑学生重名的情况），如下所示：</p>
+<p>models.py</p>
+<p><div class="highlight"><pre><span></span><code><span class="c1"># models.py</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+<span class="k">class</span> <span class="nc">Student</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+    <span class="n">grade</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>silvers@vm ~<span class="o">]</span>$ python3
+...
+&gt;&gt;&gt;
+&gt;&gt;&gt; data, <span class="nv">status</span> <span class="o">=</span> models.Student.objects.get_or_create<span class="o">(</span><span class="nv">name</span><span class="o">=</span><span class="s2">&quot;Mike&quot;</span>,defaults<span class="o">={</span><span class="nv">grade</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="o">})</span>
+</code></pre></div>
+返回一个元组，第一个为Student对象，第二个为True或False,，新建时返回的是True，已经存在时返回False，可以一定程度上减少代码量</p>
+<h3 id="43">4.3 删除数据<a class="headerlink" href="#43" title="Permanent link">&para;</a></h3>
+<ol>
+<li>delete方法单个删除：models.Test.objects.get(name="Mike").delete()</li>
+<li>delete方法批量删除：models.Test.objects.filter(age=18).delete()</li>
+<li>delete方法删除全部：models.Test.objects.all().delete()</li>
+</ol>
+<h3 id="44">4.4 修改数据<a class="headerlink" href="#44" title="Permanent link">&para;</a></h3>
+<p>方法一：update方法</p>
+<p>test = models.Test.objects.filter(name='Mike').update(age=19)</p>
+<p>方法二：get获取一个对象</p>
+<ol>
+<li>test = models.Test.objects.get(name='Mike')</li>
+<li>test.age = 19</li>
+<li>test.save()</li>
+</ol>
+<p>方法三：update_or_create方法</p>
+<ol>
+<li>普通的方法更新或创建数据：
+<div class="highlight"><pre><span></span><code><span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="mi">19</span><span class="p">}</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">Test</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;John&#39;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">defaults</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+<span class="k">except</span> <span class="n">Person</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+    <span class="n">new_values</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;John&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="mi">19</span><span class="p">}</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">Test</span><span class="p">(</span><span class="o">**</span><span class="n">new_values</span><span class="p">)</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</code></pre></div></li>
+<li>使用update_or_create方法：
+<div class="highlight"><pre><span></span><code><span class="n">data</span><span class="p">,</span><span class="n">status</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Test</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">update_or_create</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Mike&#39;</span><span class="p">,</span><span class="n">defaults</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;age&#39;</span><span class="p">:</span><span class="mi">19</span><span class="p">})</span>
+</code></pre></div>
+<strong>说明</strong>：
+该方法返回一个二元组，第一个是一个创建的或者是被更新的对象，第二个是状态，是一个标识是否创建了新的对象的布尔值</li>
+</ol>
+<h3 id="45-qf">4.5 使用Q和F<a class="headerlink" href="#45-qf" title="Permanent link">&para;</a></h3>
+<h4 id="451-f">4.5.1 F()的作用<a class="headerlink" href="#451-f" title="Permanent link">&para;</a></h4>
+<p>操作数据表中的某列值，F()允许Django在未实际链接数据的情况下具有对数据库字段的值的引用，不用获取对象放在内存中再对字段进行操作，而是直接执行原生产sql语句操作。</p>
+<p>例子1：</p>
+<p>通常情况下我们在更新数据时需要先从数据库里将原数据取出后方在内存里，然后编辑某些属性，最后提交，代码如下：
+views.py</p>
+<p><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">models</span> <span class="kn">import</span> <span class="n">Test</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">Test</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Mike&#39;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">age</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="n">data</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+<span class="c1">#sql:update test set age=xxx where name=&#39;Mike&#39;;</span>
+</code></pre></div>
+例子2：</p>
+<p>使用F()不用获取对象放在内存中再对字段进行操作，而是直接执行原生产sql语句操作，代码如下：
+views.py</p>
+<p><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">F</span>
+<span class="kn">from</span> <span class="nn">models</span> <span class="kn">import</span> <span class="n">Test</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">Test</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Mike&quot;</span><span class="p">)</span><span class="c1">#惰性执行</span>
+<span class="n">data</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">F</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="c1">#并没有获取age的值</span>
+<span class="n">data</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+<span class="c1">#sql:update test set age=age+1 where name=&#39;Mike&#39;;</span>
+</code></pre></div>
+<strong>说明</strong>：python做的唯一的事情就是通过Django的F()函数创建了一条SQL语句然后执行，需要注意的是使用F()更新数据之后需要重新加载数据来使数据库中的值与程序（内存）中的值项对应，可以使用data.refresh_from_db()或者之间再次赋值：data = models.Test.objects.get(name='Mike')</p>
+<p>例子3：</p>
+<p>使用update配合F()更新多条数据</p>
+<p>views.py</p>
+<p><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">models</span> <span class="kn">import</span> <span class="n">Test</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">Test</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">age</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">age</span><span class="o">=</span><span class="n">F</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<strong>说明</strong>：这样做的效率比将其取到内存中后再一个个计算值再更新数据库的效率会提高非常多</p>
+<h4 id="452-q">4.5.2 Q()的作用<a class="headerlink" href="#452-q" title="Permanent link">&para;</a></h4>
+<p>对对象进行复杂查询，并支持&amp;（and）,|（or），~（not）操作符（操作符作用于Q对象之间，而不是Q对象之内）</p>
+<p>例子1：</p>
+<p>当我们在查询的条件中需要组合条件时(例如两个条件“且”或者“或”)时，可以使用Q()查询对象，代码如下：
+views.py</p>
+<p><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">Q</span>
+<span class="kn">from</span> <span class="nn">models</span> <span class="kn">import</span> <span class="n">Test</span>
+
+<span class="n">q</span><span class="o">=</span><span class="n">Q</span><span class="p">(</span><span class="n">name__startswith</span><span class="o">=</span><span class="s2">&quot;M&quot;</span><span class="p">)</span>
+<span class="n">p</span><span class="o">=</span><span class="n">Q</span><span class="p">(</span><span class="n">name__endswith</span><span class="o">=</span><span class="s1">&#39;e&#39;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">Test</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
+</code></pre></div>
+这样就给filter传递了2个Q对象，逗号关系是&amp;，当然我们可以使用符号&amp;或者|将多个Q()对象组合起来传递给filter()，exclude()，get()等函数。当多个Q()对象组合起来时，Django会自动生成一个新的Q()</p>
+<p>例子2：</p>
+<p>Q查询和关键字查询组合，Q是位置参数，必须要在关键字参数之前（python语法），代码如下：</p>
+<p>views.py</p>
+<p><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">Q</span>
+<span class="kn">from</span> <span class="nn">models</span> <span class="kn">import</span> <span class="n">Test</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">Test</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">name__contains</span><span class="o">=</span><span class="s1">&#39;M&#39;</span><span class="p">),</span><span class="n">age</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+</code></pre></div>
+<strong>说明</strong>：Q()支持大多数filter支持的参数命名修饰（__xxx用法）</p>
+<h3 id="46">4.6 属性类型介绍<a class="headerlink" href="#46" title="Permanent link">&para;</a></h3>
+<ol>
+<li>AutoField：自动增长的IntegerField，通常不用指定，不指定时Django会自动创建属性名为id的自动增长属性。</li>
+<li>BooleanField：布尔字段，值为True或False。</li>
+<li>NullBooleanField：支持Null、True、False三种值。</li>
+<li>CharField(max_length=字符长度)：字符串。</li>
+<li>TextField：大文本字段，一般超过4000个字符时使用,参数max_length表示最大字符个数。</li>
+<li>IntegerField：整数。</li>
+<li>DecimalField(max_digits=None, decimal_places=None)：十进制浮点数,参数max_digits表示总位数,参数decimal_places表示小数位数。</li>
+<li>FloatField(max_digits=None, decimal_places=None)：浮点数,参数max_digits表示最大的位数,参数decimal_places表示小数位数。</li>
+<li>DateField([auto_now=False | auto_now_add=False])：日期。</li>
+<li>TimeField：时间，参数同DateField。参数auto_now表示每次保存对象时，自动设置该字段为当前时间，用于"最后一次修改"的时间戳，它总是使用当前日期，默认为false,
+    参数auto_now_add表示当对象第一次被创建时自动设置当前时间，用于创建的时间戳，它总是使用当前日期，默认为false。
+    注意：参数auto_now_add和auto_now是相互排斥的，组合将会发生错误。</li>
+<li>DateTimeField：日期时间，参数同DateField。</li>
+<li>FileField：上传文件字段。</li>
+<li>ImageField：继承于FileField，对上传的内容进行校验，确保是有效的图片。</li>
+</ol>
+<p>其他：Django还有邮箱、url、ip地址等属性字段，但是不经常使用，一般就用CharField就可以了，使用这些会增加异常的可能</p>
+<p>注意：Django会自动为表创建主键字段
+如果使用选项设置某属性为主键字段后，Django就不会再创建自动增长的主键字段，默认创建的主键字段为id，可以使用pk（primary key）代替</p>
+<h3 id="47">4.7 属性类型的常见关键字参数介绍<a class="headerlink" href="#47" title="Permanent link">&para;</a></h3>
+<ol>
+<li>外键引用（ForeignKey）字段类型——on_delete=value</li>
+</ol>
+<p>value的值有：</p>
+<ul>
+<li>CASCADE：删除引用的对象时，也删除引用它的对象</li>
+<li>PROTECT：禁止删除引用的对象。SQL等价物：RESTRICT。</li>
+<li>SET_NULL：将引用设置为NULL（要求字段可以为空），当字段设置null=True才可以使用</li>
+<li>SET_DEFAULT：设置默认值。只有当字段设置了default参数时才能使用 SQL等价物：SET DEFAULT。</li>
+<li>SET(value 或者 函数返回值)：设置给定值。这个不是SQL标准的一部分，完全由Django处理。</li>
+<li>
+<p>DO_NOTHING：SQL等价物：NO ACTION。</p>
+</li>
+<li>
+<p>to_field:设置要关联的表的字段</p>
+</li>
+<li>
+<p>to:设置要关联的表</p>
+</li>
+</ul>
+<p>例子：</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Test2</span><span class="p">():</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;Test&#39;</span><span class="p">,</span><span class="n">to_field</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>该示例表示表Test2的a属性关联Test表的name属性</p>
+<h3 id="48-filter">4.8 filter等查询方法参数的命名修饰介绍<a class="headerlink" href="#48-filter" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>__exact 精确等于 like ‘aaa’</p>
+</li>
+<li>
+<p>__iexact 精确等于 忽略大小写 ilike ‘aaa’</p>
+</li>
+<li>__contains 包含 like ‘%aaa%’</li>
+<li>__icontains 包含 忽略大小写 ilike ‘%aaa%’，但是对于sqlite来说，contains的作用效果等同于icontains。</li>
+<li>__gt 大于</li>
+<li>__gte 大于等于</li>
+<li>__lt 小于</li>
+<li>__lte 小于等于</li>
+<li>__in 存在于一个list范围内</li>
+<li>__startswith 以…开头</li>
+<li>__istartswith 以…开头 忽略大小写</li>
+<li>__endswith 以…结尾</li>
+<li>__iendswith 以…结尾，忽略大小写</li>
+<li>__range 在…范围内</li>
+<li>__year 日期字段的年份</li>
+<li>__month 日期字段的月份</li>
+<li>__day 日期字段的日</li>
+<li>__isnull=True/False</li>
+<li>__isnull=True 与 __exact=None的区别</li>
+</ul>
+<h3 id="49-models-objectsjson">4.9 把models-objects转成json格式<a class="headerlink" href="#49-models-objectsjson" title="Permanent link">&para;</a></h3>
+<p>方法一：使用values()
+例子1：</p>
+<p><div class="highlight"><pre><span></span><code>&gt;&gt;&gt; from models import Test
+&gt;&gt;&gt; <span class="nv">data</span> <span class="o">=</span> list<span class="o">(</span>Test.objects.filter<span class="o">(</span><span class="nv">name</span><span class="o">=</span><span class="s1">&#39;Mike&#39;</span><span class="o">)</span>.values<span class="o">(</span><span class="s1">&#39;name&#39;</span>,<span class="s1">&#39;age&#39;</span><span class="o">))</span> <span class="c1">#django2.0下.values()返回的时QuerySet对象，需要先转成list再取出字典</span>
+&gt;&gt;&gt; data
+<span class="o">{</span><span class="s1">&#39;name&#39;</span>: <span class="s1">&#39;Mike&#39;</span>, <span class="s1">&#39;age&#39;</span>: <span class="m">18</span><span class="o">}</span>
+</code></pre></div>
+<strong>说明</strong>：values()接收的是需要在dict里生成的键，该值不是模型里定义的属性，而是数据库里表的字段名字</p>
+<p>方法二：使用model_to_dict方法
+例子2：</p>
+<p><div class="highlight"><pre><span></span><code>&gt;&gt;&gt; from django.forms.models import model_to_dict
+&gt;&gt;&gt; from models import Test
+&gt;&gt;&gt; <span class="nv">obj</span> <span class="o">=</span> Test.objects.get<span class="o">(</span><span class="nv">name</span><span class="o">=</span><span class="s1">&#39;Mike&#39;</span><span class="o">)</span>
+&gt;&gt;&gt; <span class="nv">data</span> <span class="o">=</span> model_to_dict<span class="o">(</span>obj<span class="o">)</span>
+&gt;&gt;&gt; data
+<span class="o">{</span><span class="s1">&#39;name&#39;</span>: <span class="s1">&#39;Mike&#39;</span>, <span class="s1">&#39;age&#39;</span>: <span class="m">18</span><span class="o">}</span>
+</code></pre></div>
+<strong>说明</strong>：这种方法能满足大部分的需求，且输出也较为合理，同时也提供两个参数fields和exclude来配置输出的字段，fileds指定需要输出的字段，exclude指定不需要输出的字段，这两个关键字参数都接收一个list。</p>
+<p>（注：这里的字段是models里定义的属性）</p>
+<p>方法三：使用Django的序列化工具serializers（序列化是将对象状态转换为可保持或传输的格式的过程）</p>
+<p><div class="highlight"><pre><span></span><code>&gt;&gt;&gt; from django.core import serializers
+&gt;&gt;&gt; from models import Test
+&gt;&gt;&gt; import json
+&gt;&gt;&gt; <span class="nv">obj_list</span> <span class="o">=</span> Test.objects.filter<span class="o">(</span><span class="nv">age</span><span class="o">=</span><span class="m">18</span><span class="o">)</span>
+&gt;&gt;&gt; <span class="nv">data</span> <span class="o">=</span> serializers.serialize<span class="o">(</span><span class="s2">&quot;json&quot;</span>,obj_list<span class="o">)</span>
+&gt;&gt;&gt; data
+<span class="s1">&#39;[{&#39;</span>model<span class="s1">&#39;: &#39;</span>app.name<span class="s1">&#39;, &#39;</span>pk<span class="s1">&#39;: &#39;</span>id<span class="s1">&#39;, &#39;</span>fields<span class="s1">&#39;: {&#39;</span>name<span class="s1">&#39;: &#39;</span>Mike<span class="s1">&#39;, &#39;</span>age<span class="s1">&#39;: 18}},...]&#39;</span>
+&gt;&gt;&gt; <span class="nv">data</span> <span class="o">=</span> json.loads<span class="o">(</span>data<span class="o">)</span>
+&gt;&gt;&gt; data
+<span class="o">[{</span><span class="s1">&#39;model&#39;</span>: <span class="s1">&#39;app.name&#39;</span>, <span class="s1">&#39;pk&#39;</span>: <span class="s1">&#39;id&#39;</span>, <span class="s1">&#39;fields&#39;</span>: <span class="o">{</span><span class="s1">&#39;name&#39;</span>: <span class="s1">&#39;Mike&#39;</span>, <span class="s1">&#39;age&#39;</span>: <span class="m">18</span><span class="o">}}</span>,...<span class="o">]</span>
+&gt;&gt;&gt; <span class="nv">data_list</span> <span class="o">=</span> <span class="o">[]</span>
+&gt;&gt;&gt; <span class="k">for</span> item <span class="k">in</span> data:
+...     <span class="nv">temp</span> <span class="o">=</span> item.get<span class="o">(</span><span class="s1">&#39;fields&#39;</span><span class="o">)</span>
+...     data_list.append<span class="o">(</span>temp<span class="o">)</span>
+
+&gt;&gt;&gt; data_list
+<span class="o">[{</span><span class="s1">&#39;name&#39;</span>: <span class="s1">&#39;Mike&#39;</span>, <span class="s1">&#39;age&#39;</span>: <span class="m">18</span><span class="o">}</span>,...<span class="o">]</span>
+</code></pre></div>
+<strong>说明</strong>：这个方法至少接收两个参数，第一个是你要序列化成为的数据格式，这里是‘json’(django支持xml、json、yaml这3种，其中yaml可能需要第三方库的支持)，第二个是要序列化的数据对象，数据通常是ORM模型的QuerySet，一个可迭代的对象，该方法还接收一个fields关键字(tuple or list)参数，用于序列化指定的字段，如fields=('name','age'),我们通常只需要结果里键fields对应的值。</p>
+<p>注意：如果ORM模型具有自定义的字段，那么这个序列化工具无法正常工作，必须自己编写相应部分的序列化代码。</p>
+<h2 id="models_1">五、models的注意要点<a class="headerlink" href="#models_1" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>涉及到对models的操作（增加、删除、查询、修改），如果你不能保证你传入的值是合法的值，最好用try...except包括起来，不涉及到条件限制（传入参数）的可以不用异常处理，如models.Test.objects.all()这种</p>
+</li>
+<li>
+<p>使用print(str(models.Test.objects.all().query))可以查看执行Test.objects.all()时执行的sql语句</p>
+</li>
+<li>
+<p>使用models.Test.objects.filter(field1=xxx).values('field1','field2',...,'fieldn')时，values中的字段是数据库中实际的字段，而不是models定义的该表的模型的字段。</p>
+</li>
+<li>
+<p>如果field1是外键字段，则models.Test.objects.filter(field1__id=xxx)可以指定只关联到原表的id而不是整个model对象</p>
+</li>
+<li>
+<p>get_or_create()方法有一个defaults关键字参数，用于指定当get失败需要create时，该表对应的models中其他属性的创建值，defaults是一个dict。</p>
+</li>
+<li>
+<p>当models的表定义没有主键时，如果要使用filter，应该根据数据库的表结构和自己的需求指定values字段，这样可以避免Django抛出找不到id的异常情况</p>
+</li>
+<li>
+<p>django默认情况下每一个主表的对象都有一个是外键的属性，可以通过它查询到所有关于子表的信息，这个属性的名字就是子表的名称小写加上_set，比如有teacher表和student表，student表有一个外键指向teacher，那么可以用t = teacher.objects.get(id=1).student_set.all()就可以得到这个teacher的所有student，如果在定义student表的teacher属性的时候指定了related_name关键字参数的值，比如related_name='student_teacher',那么可以使用t = teacher.objects.get(id=1).student_teacher.all()获取这个teacher的所有student</p>
+</li>
+<li>
+<p>当一张表的多个字段指向同一张表时，会出错。因为系统无法知道，通过另一张表，访问xxx_set属性时访问的是哪个属性，这时就要为这些字段定义一个related_name属性，另外一张表访问这个表时，就会根据related_name的值来得到各个属性</p>
+</li>
+<li>一般情况下ForeignKey('table_name')是默认关联到table_name的id的，可以通过to_field关键字参数改变这一默认行为。to_field的作用是指定被关联对象的用于关联的字段（在Django的ORM中，这个被关联的字段必须是有unique属性的字段）。可以解决数据库表的外键关联的字段不是表的id的情况，但是注意，赋值的时候还是需要赋一个实例，而不是一个字段值</li>
+<li>一般来说属性f = ForeignKey('A')在数据库生成表的时候，该模型的f属性会对应数据库该表的f_id字段，如果一定要让数据库表的字段也是f，那么可以在定义属性f的时候加一个关键字参数db_column='f',这样数据库里面该模型对应的表的字段就是f了</li>
+</ol>
+<h2 id="djangosql">六、Django中使用原生SQL操作数据库<a class="headerlink" href="#djangosql" title="Permanent link">&para;</a></h2>
+<p>尽管ORM很好用，单很多情况下有很大局限性，常常还是会需要用到原生sql查询。下面介绍几个常用的django原生sql查询封装的方法</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span><span class="n">params</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">rowcount</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span><span class="n">params</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">result</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">rowcount</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">transation</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">cursor</span><span class="p">()</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+
+
+<span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    返回一行数据</span>
+<span class="sd">    :param sql: sql语句</span>
+<span class="sd">    :param params: sql语句参数</span>
+<span class="sd">    :return: 例如：{&quot;id&quot;: id, &quot;username&quot;: &#39;username&#39;, &quot;first_name&quot;: &#39;first_name&#39;}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;status&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">}</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">result</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="nb">print</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">rowcount</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">desc</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">description</span>
+            <span class="n">data_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="n">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">desc</span><span class="p">],</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()))</span>
+            <span class="n">result</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_dict</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+
+<span class="k">def</span> <span class="nf">queryAll</span><span class="p">(</span><span class="n">sql</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    返回全部数据</span>
+<span class="sd">    :param sql: sql语句</span>
+<span class="sd">    :return: 例如：[{&quot;id&quot;: id, &quot;username&quot;: &#39;username&#39;, &quot;first_name&quot;: &#39;first_name&#39;}]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;status&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">}</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">result</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">rowcount</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>  
+            <span class="n">desc</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">description</span>
+            <span class="n">object_list</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="n">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">desc</span><span class="p">],</span> <span class="n">row</span><span class="p">))</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <span class="p">]</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">object_list</span>
+</code></pre></div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022 <a href="https://www.silvers.xyz">Silvers</a>,.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "search": "../../../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.8aa65030.min.js"></script>
+      
+    
+  </body>
+</html>

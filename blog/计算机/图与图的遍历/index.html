@@ -1,0 +1,924 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="silvers' blog">
+      
+      
+        <meta name="author" content="silvers">
+      
+      
+        <link rel="canonical" href="http://www.silvers.xyz/blog/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E5%9B%BE%E4%B8%8E%E5%9B%BE%E7%9A%84%E9%81%8D%E5%8E%86/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.1">
+    
+    
+      
+        <title>图与图的遍历 - silvers' blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e8d9bf0c.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../resources/css/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="silvers&#39; blog" class="md-header__button md-logo" aria-label="silvers' blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            silvers' blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              图与图的遍历
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/MrSilvers" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="silvers&#39; blog" class="md-nav__button md-logo" aria-label="silvers' blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    silvers' blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/MrSilvers" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        专栏
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../idea/" class="md-nav__link">
+        想法
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../life/" class="md-nav__link">
+        生活
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../aboutme/" class="md-nav__link">
+        关于我
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    1.1 图的定义
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    1.2 图的分类
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2 图的分类">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121" class="md-nav__link">
+    1.2.1 有向图
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122" class="md-nav__link">
+    1.2.2 无向图
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    1.3 图的性质
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 图的性质">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131" class="md-nav__link">
+    1.3.1 连通图
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+<p><em>部分内容和图片参考《王道数据结构2020》</em></p>
+<h1 id="_1">一、图的基本概念<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="11">1.1 图的定义<a class="headerlink" href="#11" title="Permanent link">&para;</a></h2>
+<p>图 G 由顶点集 Y 和边集 E 组成，记为 G=(V, E) ，其 中 V(G)表示图 G 中顶点的有限非空集； </p>
+<p>E(G)表示图 G 中顶点之间的关系 ( 也就是边) 集合。若 V= {V1 , V2,..., Vn}，则用|V|表示图 G 中顶点的个数
+图的顶点个数也称图 G 的阶，E = {(u,v) | u ε V, v ε V}，用 |E| 表示 图 G 中边的条数 
+**注意：**线性表可以是空表，树可以是空树，但不存在空图</p>
+<h2 id="12">1.2 图的分类<a class="headerlink" href="#12" title="Permanent link">&para;</a></h2>
+<h3 id="121">1.2.1 有向图<a class="headerlink" href="#121" title="Permanent link">&para;</a></h3>
+<p>若 E 是有向边(也称弧)的有限集合时，则图 G 为有向图 。 弧是顶点的有序对，记为&lt; v, w &gt;，其中 v，w 是顶点， v 称为弧尾，w 称为弧 头，&lt; v, w &gt;称为从顶点 v 到顶点 w 的弧，也称 v 邻接到 w，或 w 邻接自 ν 。
+如下所示的有向图 G1 可表示为  </p>
+<p>G1 = (V,, £,)
+Vi={1,2,3}
+£1 = {&lt; 1, 2&gt;, &lt;2, 1 &gt;, &lt;2, 3&gt;}
+<img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20210116141944625.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hEX2hhbw==,size_16,color_FFFFFF,t_70" /></p>
+<h3 id="122">1.2.2 无向图<a class="headerlink" href="#122" title="Permanent link">&para;</a></h3>
+<p>若 E 是无向边 (简称 边 )的有限集合时，则图 G 为无向图 。 边是顶点的无序对，记为 ( v, w)或(w, v)，因为(v, w) = (w, v)，其中 v, w 是顶 点。可以说顶点 w 和顶点 v 互 为邻接点。边( v, w)依附于顶点 w 和 v ,或者说边(ν, w)和顶点 v, w 相关联。
+如下所示的无向图 G2 可表示为  </p>
+<p>G2 = (V2, E2)
+V2= {1, 2,3,4}
+E2 = {(1, 2), (1, 3), (1, 4), (2, 3), (2, 4), (3, 4)}
+<img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20210116142047504.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hEX2hhbw==,size_16,color_FFFFFF,t_70" /></p>
+<h2 id="13">1.3 图的性质<a class="headerlink" href="#13" title="Permanent link">&para;</a></h2>
+<h3 id="131">1.3.1 连通图<a class="headerlink" href="#131" title="Permanent link">&para;</a></h3>
+<p>在无向图中，若从顶点 v 到顶点 w 有**路径**存在，则称 v 和 w 是连通的 。 若图 G 中任意两个顶点都是连通的，则称图 G 为连通图，否则称为非连通图。
+若一个图有 n 个顶点，并且边数小于 n - 1 ，则此图必是非连通图</p>
+<h1 id="_2">二、图的存储结构及基本操作<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
+<p>图的存储必须要完整、准确地反映顶点集和边集的信息 。 根据不同图的结构和算法 , 采用不同的存储方式将对程序的效率产生相当大的影响，因此所选的存储结构应适合于欲求解的问题 。
+常见的图的存储方式有以下几种：
+<strong>邻接矩阵</strong>、<strong>邻接表</strong>、邻接多重表、十字链表</p>
+<h2 id="21">2.1 邻接矩阵<a class="headerlink" href="#21" title="Permanent link">&para;</a></h2>
+<p>所谓邻接矩阵存储，是指用一个一维数组存储图中顶点的信息，用一个二维数组存储图中边的信息（即各顶点之间的邻接关系），存储顶点之间邻接关系的二维数组称为邻接矩阵。
+有向图、无向图对应的邻接矩阵如下图所示
+<img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20210116142336748.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hEX2hhbw==,size_16,color_FFFFFF,t_70#pic_center" />
+图的邻接矩阵存储结构定义如下 :
+<div class="highlight"><pre><span></span><code><span class="cp">#define MaxVertexNum 100 </span><span class="c1">//顶点数目的最大值</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">VertexType</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="c1">//顶点的数据类型</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">EdgeType</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="c1">//带权图中边上权值的数据类型</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">VertexType</span><span class="w"> </span><span class="n">Vex</span><span class="p">[</span><span class="n">MaxVertexNum</span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="c1">//顶点表</span>
+<span class="w">    </span><span class="n">EdgeType</span><span class="w"> </span><span class="n">Edge</span><span class="p">[</span><span class="n">MaxVertexNum</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="n">MaxVertexNum</span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="c1">//邻接矩阵,边表</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">vexnum</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">arcnum</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="c1">//图的当前顶点数和弧数</span>
+<span class="p">}</span><span class="n">MGraph</span><span class="p">;</span><span class="w"></span>
+</code></pre></div></p>
+<h2 id="22">2.2 邻接表<a class="headerlink" href="#22" title="Permanent link">&para;</a></h2>
+<p>所谓邻接表，是指对图 G 中的每个顶点 Vi 建立一个单链表，第 i 个单链表中的结点表示依附于顶点 Vi 的边 (对于有向图则是以顶点 Vi 为尾的弧)，这个单链表就称为顶点 Vi 的边表 (对于有向图则称为出边表) 。 边表的头指针和顶点的数据信息采用顺序存储(称为顶点表)，所以在邻接表中存在两种结点： 顶点表结点和边表结点 ，如下所示
+<img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20210116142448648.png#pic_center" />
+顶点表结点由顶点域( data ) 和指向第一条邻按边的指针 ( firstarc )构成，边表(邻接
+表)结点由邻接点域( adjvex )和指向下一条邻接边的指针域 (nextarc )构成 。
+无向图和有向图的邻接表的实例分别如下所示
+<img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20210116142535509.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hEX2hhbw==,size_16,color_FFFFFF,t_70#pic_center" />
+<img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20210116142554187.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hEX2hhbw==,size_16,color_FFFFFF,t_70#pic_center" />
+图的邻接表存储结构定义如下 :
+<div class="highlight"><pre><span></span><code><span class="cp">#define MaxVertexNum 20 </span><span class="c1">//图中顶点数目的最大值</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">ArcNode</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">adjvex</span><span class="p">;</span><span class="c1">//顶点编号</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">ArcNode</span><span class="w"> </span><span class="o">*</span><span class="n">next</span><span class="p">;</span><span class="c1">//顶点的下一条邻边</span>
+<span class="p">}</span><span class="n">ArcNode</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">VNode</span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">VertexType</span><span class="w"> </span><span class="n">data</span><span class="p">;</span><span class="c1">//顶点数据</span>
+<span class="w">    </span><span class="n">ArcNode</span><span class="w"> </span><span class="o">*</span><span class="n">first</span><span class="p">;</span><span class="c1">//顶点的第一条邻边</span>
+<span class="p">}</span><span class="n">VNode</span><span class="p">,</span><span class="n">AdjList</span><span class="p">[</span><span class="n">MaxVertexNum</span><span class="p">];</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">AdjList</span><span class="w"> </span><span class="n">vertices</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">vexnum</span><span class="p">,</span><span class="w"> </span><span class="n">arcnum</span><span class="p">;</span><span class="c1">//顶点总数和边总数</span>
+<span class="p">}</span><span class="n">ALGraph</span><span class="p">;</span><span class="w"></span>
+</code></pre></div></p>
+<h2 id="23">2.3 图的基本操作<a class="headerlink" href="#23" title="Permanent link">&para;</a></h2>
+<p>图的基本操作是独立于图的存储结构的。而对于不同的存储方式 ， 操作算法的具体实现会有着不同的性能 。在设计具体算法的实现时，应考虑采用何种存储方式的算法效率会更高 。
+图的基本操作主要包括(抽象考虑，忽略各变量的类型）:
+• Adjacent (G, x , y ):判断图 G 是否存在边&lt; x, y&gt;或(x,y) 
+• Neighbors (G, x ) :列出图 G 中与结点 x 邻接的边 
+• InsertVertex (G, x ) : 在图 G 中插入顶点 x
+• DeleteVertex (G, x ) : 从图 G 中删除顶点 x
+• AddEdge (G, x , y ): 若无向边 (x, y) 或有向边&lt; x, y&gt;不存在，则向图 G 中添加该边。
+• RemoveEdge (G, x , y ) : 若无向边(x,y)或有向边&lt; x, y&gt;存在，则从图 G 中删除该边。
+• FirstNeighbor (G, x ) : 求图 G 中顶点 x 的第一个邻接点，若有则返回顶点号。若 x 没有邻接点或图中不存在 x ，则返回-1
+• NextNeighbor (G, x , y ) :假设 图 G 中顶点 y 是顶点 x 的一个邻接点，返回除 y 外顶点 x 的下一个邻接点的顶点号， 若 y 是 x 的最后一个邻接点，则返回-1
+• Get_edge_value (G , x , y ): 获取图 G 中边(x,y)或&lt; x, y&gt;对应的权值
+• Set_edge_value(G , x , y , v ): 设置图 G 中边(x,y)或&lt; x, y&gt;对应的权值为 v</p>
+<h1 id="_3">三、图的遍历<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h1>
+<p>图的遍历是指从图中的某一顶点出发，按照某种搜索方法沿着图中的边对图中的所有顶点访问一次且仅访问一次 。
+图的遍历算法主要有两种：广度优先搜索和深度优先搜索</p>
+<h2 id="31">3.1 广度优先搜索<a class="headerlink" href="#31" title="Permanent link">&para;</a></h2>
+<p>广度优先搜索( Breadth-First-Search BFS ) 类似于二叉树的层序遍历算法。基本思想是：首先访问起始顶点 v，接着由 v 出发，依次访问 v 的各个未访问过的邻接顶点 W1,W2,...,Wi，然后依次访问 W1 , W2,..., Wi 的所有未被防问过的邻接顶点；再从这些访问过的顶点出发，访问它们所有未被访问过的邻接顶点，直至图中所有顶点都被访问过为止 。 若此时图中尚有顶点未被访问,则另选图中一个未曾被访问的顶点作为起始点，重复上述过程，直至图中所有顶点都被访问到为止 。
+假设有下图所示的无向图
+<img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20210116142816770.png#pic_center" />
+假设从 a 结点开始访问，a 先入队 。 此时队列非空，取出队头元素 a ，
+由于 b ，c 与 a 邻接且未被访问过，于是依次访问 b，c ，并将 b, c 依次入队 。
+队列非空，取出队头元素 b ，依次访问与 b 邻接且未被访问的顶点 d, e ，并
+将 d,e 入队(注意 : a 与 b 也邻接，但 a 己置访问标记，故不再重复访问) 。
+此时队列非空，取出队头元素 c，访 问与 c 邻接且未被访问的顶点 f , g， 并将 f , g 入队。此时，取出队头元素 d ，但与 d 邻接且未被访问的顶点为空，故不进行任何操作。继续取出队头元素 e ，将 h 入队列......最终取出队头元素 h 后， 队列为空，从而循环自动跳出 。遍历结果为 <strong>abcdefgh</strong></p>
+<h3 id="_4">算法实现<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><span class="c1">//@Author: mrsilvers@163.com</span>
+<span class="c1">//@Date: 2021-01-06 18:07:43</span>
+<span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+
+<span class="cm">/*图相关结构定义*/</span><span class="w"></span>
+<span class="cp">#define MaxVertexNum 20</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">VertexType</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">ArcNode</span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">adjvex</span><span class="p">;</span><span class="c1">//顶点编号</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">ArcNode</span><span class="w"> </span><span class="o">*</span><span class="n">next</span><span class="p">;</span><span class="c1">//顶点的下一条邻边</span>
+<span class="p">}</span><span class="n">ArcNode</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">VNode</span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">VertexType</span><span class="w"> </span><span class="n">data</span><span class="p">;</span><span class="c1">//顶点数据</span>
+<span class="w">    </span><span class="n">ArcNode</span><span class="w"> </span><span class="o">*</span><span class="n">first</span><span class="p">;</span><span class="c1">//顶点的第一条邻边</span>
+<span class="p">}</span><span class="n">VNode</span><span class="p">,</span><span class="n">AdjList</span><span class="p">[</span><span class="mi">20</span><span class="p">];</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">AdjList</span><span class="w"> </span><span class="n">vertices</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">vexnum</span><span class="p">,</span><span class="w"> </span><span class="n">arcnum</span><span class="p">;</span><span class="c1">//顶点总数和边总数</span>
+<span class="p">}</span><span class="n">ALGraph</span><span class="p">;</span><span class="w"></span>
+
+<span class="cm">/*队列相关结构定义*/</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">ElemType</span><span class="p">;</span><span class="w"></span>
+<span class="c1">//链队列定义</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">Qnode</span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">ElemType</span><span class="w"> </span><span class="n">data</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">Qnode</span><span class="w"> </span><span class="o">*</span><span class="n">next</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="n">Qnode</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">Queuep</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">Queuep</span><span class="w"> </span><span class="n">front</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Queuep</span><span class="w"> </span><span class="n">rear</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="n">linkQueue</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">//顶点结果输出函数</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">visit</span><span class="p">(</span><span class="n">ALGraph</span><span class="w"> </span><span class="o">*</span><span class="n">g</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;遍历到顶点：%d </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">g</span><span class="o">-&gt;</span><span class="n">vertices</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">data</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">bool</span><span class="w"> </span><span class="n">visited</span><span class="p">[</span><span class="n">MaxVertexNum</span><span class="p">];</span><span class="c1">//辅助数组</span>
+<span class="n">linkQueue</span><span class="w"> </span><span class="n">l</span><span class="p">;</span><span class="c1">//队列</span>
+
+<span class="cm">/*队列操作方法实现*/</span><span class="w"></span>
+<span class="c1">//带头节点链表方法实现</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">InitQueue</span><span class="p">(</span><span class="n">linkQueue</span><span class="w"> </span><span class="o">&amp;</span><span class="n">l</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;初始化队列...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">l</span><span class="p">.</span><span class="n">front</span><span class="o">=</span><span class="n">l</span><span class="p">.</span><span class="n">rear</span><span class="o">=</span><span class="p">(</span><span class="n">Queuep</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Qnode</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">l</span><span class="p">.</span><span class="n">front</span><span class="p">){</span><span class="w"></span>
+<span class="w">        </span><span class="n">perror</span><span class="p">(</span><span class="s">&quot;InitQueue:&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="mi">-1</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">l</span><span class="p">.</span><span class="n">front</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">EnQueue</span><span class="p">(</span><span class="n">linkQueue</span><span class="w"> </span><span class="o">&amp;</span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">ElemType</span><span class="w"> </span><span class="n">d</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;元素 %d 入队列...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">Queuep</span><span class="w"> </span><span class="n">p</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">p</span><span class="o">=</span><span class="p">(</span><span class="n">Queuep</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Qnode</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="p">){</span><span class="w"></span>
+<span class="w">        </span><span class="n">perror</span><span class="p">(</span><span class="s">&quot;EnQueue:&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">l</span><span class="p">.</span><span class="n">rear</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="n">p</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">l</span><span class="p">.</span><span class="n">rear</span><span class="o">=</span><span class="n">p</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">DeQueue</span><span class="p">(</span><span class="n">linkQueue</span><span class="w"> </span><span class="o">&amp;</span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">ElemType</span><span class="w"> </span><span class="o">&amp;</span><span class="n">d</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;元素 %d 出队列...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">Queuep</span><span class="w"> </span><span class="n">p</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">front</span><span class="o">==</span><span class="n">l</span><span class="p">.</span><span class="n">rear</span><span class="p">){</span><span class="w"></span>
+<span class="w">        </span><span class="n">perror</span><span class="p">(</span><span class="s">&quot;DeQueue:&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">p</span><span class="o">=</span><span class="n">l</span><span class="p">.</span><span class="n">front</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">d</span><span class="o">=</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">l</span><span class="p">.</span><span class="n">front</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">p</span><span class="o">==</span><span class="n">l</span><span class="p">.</span><span class="n">rear</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">l</span><span class="p">.</span><span class="n">rear</span><span class="o">=</span><span class="n">l</span><span class="p">.</span><span class="n">front</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">free</span><span class="p">(</span><span class="n">p</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">bool</span><span class="w"> </span><span class="nf">IsEmpty</span><span class="p">(</span><span class="n">linkQueue</span><span class="w"> </span><span class="o">&amp;</span><span class="n">l</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">l</span><span class="p">.</span><span class="n">front</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">rear</span><span class="p">){</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="cm">/*图的操作方法实现*/</span><span class="w"></span>
+<span class="c1">//返回图G中顶点v的第一个邻接点在G的顶点数组中的位置i，若v没有邻接点或者图中不存在v，则返回-1</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">FirstNeighbor</span><span class="p">(</span><span class="n">ALGraph</span><span class="w"> </span><span class="o">&amp;</span><span class="n">g</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="n">VNode</span><span class="w"> </span><span class="n">vv</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="c1">//判断图g是否存在顶点v</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">v</span><span class="o">&lt;</span><span class="n">g</span><span class="p">.</span><span class="n">vexnum</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">v</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">){</span><span class="w"></span>
+<span class="w">        </span><span class="n">vv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">vertices</span><span class="p">[</span><span class="n">v</span><span class="p">];</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">vv</span><span class="p">.</span><span class="n">first</span><span class="o">-&gt;</span><span class="n">adjvex</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">vexnum</span><span class="p">){</span><span class="c1">//判断该边连接的顶点是否在图g内</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;顶点 %d 的第一个邻接点是 %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">vv</span><span class="p">.</span><span class="n">first</span><span class="o">-&gt;</span><span class="n">adjvex</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">vv</span><span class="p">.</span><span class="n">first</span><span class="o">-&gt;</span><span class="n">adjvex</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="c1">//i是图G中顶点v的一个邻接点(编号)，该函数返回除(编号是)邻接点i外的顶点v的下一个邻接点的编号，若i是v的最后一个邻接点(编号)，则返回-1</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">NextNeighbor</span><span class="p">(</span><span class="n">ALGraph</span><span class="w"> </span><span class="o">&amp;</span><span class="n">g</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="n">ArcNode</span><span class="w"> </span><span class="n">arc</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">VNode</span><span class="w"> </span><span class="n">vv</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="c1">//判断图g是否存在顶点v</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">v</span><span class="o">&lt;</span><span class="n">g</span><span class="p">.</span><span class="n">vexnum</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">v</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">){</span><span class="w"></span>
+<span class="w">        </span><span class="n">vv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">vertices</span><span class="p">[</span><span class="n">v</span><span class="p">];</span><span class="w"></span>
+<span class="w">        </span><span class="n">arc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="n">vv</span><span class="p">.</span><span class="n">first</span><span class="p">);</span><span class="c1">//顶点v的第一条邻边</span>
+<span class="w">        </span><span class="k">while</span><span class="p">(</span><span class="n">arc</span><span class="p">.</span><span class="n">next</span><span class="o">!=</span><span class="nb">NULL</span><span class="p">){</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">arc</span><span class="p">.</span><span class="n">adjvex</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">i</span><span class="p">){</span><span class="w"></span>
+<span class="w">                </span><span class="k">if</span><span class="p">(</span><span class="n">arc</span><span class="p">.</span><span class="n">next</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">){</span><span class="w"></span>
+<span class="w">                    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;顶点 %d ：当前邻接点 %d ，下一个邻接点是 %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">arc</span><span class="p">.</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">adjvex</span><span class="p">);</span><span class="w"></span>
+<span class="w">                    </span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">                    </span><span class="k">return</span><span class="w"> </span><span class="n">arc</span><span class="p">.</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">adjvex</span><span class="p">;</span><span class="w"></span>
+<span class="w">                </span><span class="p">}</span><span class="w"></span>
+<span class="w">                </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="n">arc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="n">arc</span><span class="p">.</span><span class="n">next</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="c1">//根据顶点数据返回顶点在顶点表中的索引</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">getIndex</span><span class="p">(</span><span class="n">ALGraph</span><span class="w"> </span><span class="o">*</span><span class="n">g</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">data</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">g</span><span class="o">-&gt;</span><span class="n">vexnum</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">g</span><span class="o">-&gt;</span><span class="n">vertices</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">data</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">data</span><span class="p">){</span><span class="w"></span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;数据 %d 的顶点序号：%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="c1">//创建图</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">CreateGraph</span><span class="p">(</span><span class="n">ALGraph</span><span class="w"> </span><span class="o">&amp;</span><span class="n">g</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">temp_data</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">ArcNode</span><span class="w"> </span><span class="o">*</span><span class="n">arcnode</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;请输入顶点总数（20个以内）：&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="p">(</span><span class="n">g</span><span class="p">.</span><span class="n">vexnum</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;请输入总的边数（190条以内）：&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="p">(</span><span class="n">g</span><span class="p">.</span><span class="n">arcnum</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n\n</span><span class="s">创建顶点数据...</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">g</span><span class="p">.</span><span class="n">vexnum</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;请输入序号为 %d 的顶点的数据: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="p">(</span><span class="n">g</span><span class="p">.</span><span class="n">vertices</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">data</span><span class="p">));</span><span class="w"></span>
+<span class="w">        </span><span class="n">g</span><span class="p">.</span><span class="n">vertices</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n\n</span><span class="s">确定顶点之间的边的关系...</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">g</span><span class="p">.</span><span class="n">vexnum</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+<span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">g</span><span class="p">.</span><span class="n">vexnum</span><span class="mi">-1</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">){</span><span class="c1">//一个顶点最多有:（最大顶点数-1）个邻接点</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;(%d/%d)输入数据为 %d 的顶点的邻接点(输入88表示结束该顶点的邻接点关系输入): &quot;</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">vexnum</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">vertices</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">data</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">temp_data</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">temp_data</span><span class="o">==</span><span class="mi">88</span><span class="p">){</span><span class="w"></span>
+<span class="w">                </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getIndex</span><span class="p">(</span><span class="o">&amp;</span><span class="n">g</span><span class="p">,</span><span class="w"> </span><span class="n">temp_data</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="n">arcnode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">ArcNode</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">ArcNode</span><span class="p">));</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">arcnode</span><span class="p">){</span><span class="w"></span>
+<span class="w">                </span><span class="n">perror</span><span class="p">(</span><span class="s">&quot;CreateGraph:&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">                </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="n">arcnode</span><span class="o">-&gt;</span><span class="n">adjvex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">index</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="c1">//头插法建立链表</span>
+<span class="w">            </span><span class="n">arcnode</span><span class="o">-&gt;</span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">.</span><span class="n">vertices</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="n">g</span><span class="p">.</span><span class="n">vertices</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arcnode</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;图创建完成...</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="c1">//广度优先算法核心</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">BFS</span><span class="p">(</span><span class="n">ALGraph</span><span class="w"> </span><span class="o">*</span><span class="n">g</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">w</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">visit</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">visited</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">EnQueue</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">IsEmpty</span><span class="p">(</span><span class="n">l</span><span class="p">)){</span><span class="w"></span>
+<span class="w">        </span><span class="n">DeQueue</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="n">FirstNeighbor</span><span class="p">(</span><span class="o">*</span><span class="n">g</span><span class="p">,</span><span class="n">v</span><span class="p">);</span><span class="w"> </span><span class="n">w</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">w</span><span class="o">=</span><span class="n">NextNeighbor</span><span class="p">(</span><span class="o">*</span><span class="n">g</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">w</span><span class="p">)){</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">w</span><span class="p">]){</span><span class="w"></span>
+<span class="w">                </span><span class="n">visit</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="p">);</span><span class="w"></span>
+<span class="w">                </span><span class="n">visited</span><span class="p">[</span><span class="n">w</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
+<span class="w">                </span><span class="n">EnQueue</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="c1">//广度优先算法实现</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">BFSTraverse</span><span class="p">(</span><span class="n">ALGraph</span><span class="w"> </span><span class="n">g</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;开始遍历图（广度优先遍历）...</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">g</span><span class="p">.</span><span class="n">vexnum</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+<span class="w">        </span><span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">InitQueue</span><span class="p">(</span><span class="n">l</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">g</span><span class="p">.</span><span class="n">vexnum</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"></span>
+<span class="w">            </span><span class="n">BFS</span><span class="p">(</span><span class="o">&amp;</span><span class="n">g</span><span class="p">,</span><span class="n">i</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span><span class="w"></span>
+<span class="w">    </span><span class="n">ALGraph</span><span class="w"> </span><span class="n">g</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CreateGraph</span><span class="p">(</span><span class="n">g</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">BFSTraverse</span><span class="p">(</span><span class="n">g</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+由于使用了引用类型，代码需保存为.cpp文件，编译运行，结果如下
+<div class="highlight"><pre><span></span><code>silvers@HP-ZHAN:/tmp$ ./testt 
+请输入顶点总数（20个以内）：6
+请输入总的边数（190条以内）：7
+
+
+创建顶点数据...
+
+请输入序号为 <span class="m">1</span> 的顶点的数据: <span class="m">1</span>
+请输入序号为 <span class="m">2</span> 的顶点的数据: <span class="m">2</span>
+请输入序号为 <span class="m">3</span> 的顶点的数据: <span class="m">3</span>
+请输入序号为 <span class="m">4</span> 的顶点的数据: <span class="m">4</span>
+请输入序号为 <span class="m">5</span> 的顶点的数据: <span class="m">5</span>
+请输入序号为 <span class="m">6</span> 的顶点的数据: <span class="m">6</span>
+
+
+确定顶点之间的边的关系...
+
+<span class="o">(</span><span class="m">1</span>/6<span class="o">)</span>输入数据为 <span class="m">1</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">2</span>
+数据 <span class="m">2</span> 的顶点序号：1
+<span class="o">(</span><span class="m">1</span>/6<span class="o">)</span>输入数据为 <span class="m">1</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">4</span>
+数据 <span class="m">4</span> 的顶点序号：3
+<span class="o">(</span><span class="m">1</span>/6<span class="o">)</span>输入数据为 <span class="m">1</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">88</span>
+<span class="o">(</span><span class="m">2</span>/6<span class="o">)</span>输入数据为 <span class="m">2</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">5</span>
+数据 <span class="m">5</span> 的顶点序号：4
+<span class="o">(</span><span class="m">2</span>/6<span class="o">)</span>输入数据为 <span class="m">2</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">88</span>
+<span class="o">(</span><span class="m">3</span>/6<span class="o">)</span>输入数据为 <span class="m">3</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">5</span>
+数据 <span class="m">5</span> 的顶点序号：4
+<span class="o">(</span><span class="m">3</span>/6<span class="o">)</span>输入数据为 <span class="m">3</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">88</span>
+<span class="o">(</span><span class="m">4</span>/6<span class="o">)</span>输入数据为 <span class="m">4</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">2</span>
+数据 <span class="m">2</span> 的顶点序号：1
+<span class="o">(</span><span class="m">4</span>/6<span class="o">)</span>输入数据为 <span class="m">4</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">88</span>
+<span class="o">(</span><span class="m">5</span>/6<span class="o">)</span>输入数据为 <span class="m">5</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">4</span>
+数据 <span class="m">4</span> 的顶点序号：3
+<span class="o">(</span><span class="m">5</span>/6<span class="o">)</span>输入数据为 <span class="m">5</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">88</span>
+<span class="o">(</span><span class="m">6</span>/6<span class="o">)</span>输入数据为 <span class="m">6</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">6</span>
+数据 <span class="m">6</span> 的顶点序号：5
+<span class="o">(</span><span class="m">6</span>/6<span class="o">)</span>输入数据为 <span class="m">6</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">88</span>
+图创建完成...
+
+开始遍历图（广度优先遍历）...
+
+初始化队列...
+遍历到顶点：1 
+元素 <span class="m">0</span> 入队列...
+元素 <span class="m">0</span> 出队列...
+顶点 <span class="m">0</span> 的第一个邻接点是 <span class="m">3</span>
+遍历到顶点：4 
+元素 <span class="m">3</span> 入队列...
+顶点 <span class="m">0</span> ：当前邻接点 <span class="m">3</span> ，下一个邻接点是 <span class="m">1</span>
+遍历到顶点：2 
+元素 <span class="m">1</span> 入队列...
+元素 <span class="m">0</span> 出队列...
+顶点 <span class="m">3</span> 的第一个邻接点是 <span class="m">1</span>
+元素 <span class="m">3</span> 出队列...
+顶点 <span class="m">1</span> 的第一个邻接点是 <span class="m">4</span>
+遍历到顶点：5 
+元素 <span class="m">4</span> 入队列...
+元素 <span class="m">1</span> 出队列...
+顶点 <span class="m">4</span> 的第一个邻接点是 <span class="m">3</span>
+遍历到顶点：3 
+元素 <span class="m">2</span> 入队列...
+元素 <span class="m">2</span> 出队列...
+顶点 <span class="m">2</span> 的第一个邻接点是 <span class="m">4</span>
+遍历到顶点：6 
+元素 <span class="m">5</span> 入队列...
+元素 <span class="m">5</span> 出队列...
+顶点 <span class="m">5</span> 的第一个邻接点是 <span class="m">5</span>
+silvers@HP-ZHAN:/tmp$ 
+</code></pre></div>
+这组输入创建的图正是前面2.2节的有向图G，程序里面使用88表示停止当前顶点边关系的建立</p>
+<h2 id="32">3.2 深度优先搜索<a class="headerlink" href="#32" title="Permanent link">&para;</a></h2>
+<p>基本思想如下：首先访问图中某 一起始顶点 ν ，然后由 v 出发，访问与 v 邻接且未被访问的任一顶点 W1，再访问与 W1 邻接且未被访问的任一顶点 W2 ...... 重复上述过程 。当不能再继续向下访问时，依次退回到最近被的问的顶点，若它还有邻接顶点未被访问过，则从该点开始继续上述搜索过程， 直至图中所有顶点均被切问过为止
+<img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20210116142816770.png#pic_center" />
+深度优先搜索的遍历过程： 首先访问 a, 并置 a 访问标记；然后访问与 a 邻接且未被访问的顶点 b ，置 b 访问标记；然后访问与 b 邻接且未被访问的顶点 d，置 d 访问标记。此时 d 己没有未被访问过的邻接点，故返回上一个访问过的顶点 b ，访问与其邻接且未被访问的顶点 e，置 e 访问标记......以此类推，直至图中所有的顶点都被访问一次。遍历结果为 <strong>abdehcfg</strong></p>
+<h3 id="_5">算法实现<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code><span class="c1">//深度优先核心算法</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">DFS</span><span class="p">(</span><span class="n">ALGraph</span><span class="w"> </span><span class="o">*</span><span class="n">g</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="n">visit</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">visited</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">w</span><span class="o">=</span><span class="n">FirstNeighbor</span><span class="p">(</span><span class="o">*</span><span class="n">g</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">);</span><span class="n">w</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">;</span><span class="n">w</span><span class="o">=</span><span class="n">NextNeighbor</span><span class="p">(</span><span class="o">*</span><span class="n">g</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="p">)){</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">w</span><span class="p">]){</span><span class="w"></span>
+<span class="w">            </span><span class="n">DFS</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="c1">//深度优先遍历算法实现</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">DFSTraverse</span><span class="p">(</span><span class="n">ALGraph</span><span class="w"> </span><span class="n">g</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n\n</span><span class="s">开始遍历图（深度优先遍历）...</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">g</span><span class="p">.</span><span class="n">vexnum</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+<span class="w">        </span><span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">g</span><span class="p">.</span><span class="n">vexnum</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">]){</span><span class="w"></span>
+<span class="w">            </span><span class="n">DFS</span><span class="p">(</span><span class="o">&amp;</span><span class="n">g</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+读者可以把上述代码加入到3.1节广度优先遍历算法的代码中，在main函数中加入函数DFSTraverse的调用即可。
+下面是合并后的代码编译运行的结果，数据依然使用前面2.2节的有向图G
+<div class="highlight"><pre><span></span><code>silvers@HP-ZHAN:/tmp$ ./testt 
+请输入顶点总数（20个以内）：6
+请输入总的边数（190条以内）：7
+
+
+创建顶点数据...
+
+请输入序号为 <span class="m">1</span> 的顶点的数据: <span class="m">1</span>
+请输入序号为 <span class="m">2</span> 的顶点的数据: <span class="m">2</span>
+请输入序号为 <span class="m">3</span> 的顶点的数据: <span class="m">3</span>
+请输入序号为 <span class="m">4</span> 的顶点的数据: <span class="m">4</span>
+请输入序号为 <span class="m">5</span> 的顶点的数据: <span class="m">5</span>
+请输入序号为 <span class="m">6</span> 的顶点的数据: <span class="m">6</span>
+
+
+确定顶点之间的边的关系...
+
+<span class="o">(</span><span class="m">1</span>/6<span class="o">)</span>输入数据为 <span class="m">1</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">2</span>
+数据 <span class="m">2</span> 的顶点序号：1
+<span class="o">(</span><span class="m">1</span>/6<span class="o">)</span>输入数据为 <span class="m">1</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">4</span>
+数据 <span class="m">4</span> 的顶点序号：3
+<span class="o">(</span><span class="m">1</span>/6<span class="o">)</span>输入数据为 <span class="m">1</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">88</span>
+<span class="o">(</span><span class="m">2</span>/6<span class="o">)</span>输入数据为 <span class="m">2</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">5</span>
+数据 <span class="m">5</span> 的顶点序号：4
+<span class="o">(</span><span class="m">2</span>/6<span class="o">)</span>输入数据为 <span class="m">2</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">88</span>
+<span class="o">(</span><span class="m">3</span>/6<span class="o">)</span>输入数据为 <span class="m">3</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">5</span>
+数据 <span class="m">5</span> 的顶点序号：4
+<span class="o">(</span><span class="m">3</span>/6<span class="o">)</span>输入数据为 <span class="m">3</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">88</span>
+<span class="o">(</span><span class="m">4</span>/6<span class="o">)</span>输入数据为 <span class="m">4</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">2</span>
+数据 <span class="m">2</span> 的顶点序号：1
+<span class="o">(</span><span class="m">4</span>/6<span class="o">)</span>输入数据为 <span class="m">4</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">88</span>
+<span class="o">(</span><span class="m">5</span>/6<span class="o">)</span>输入数据为 <span class="m">5</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">4</span>
+数据 <span class="m">4</span> 的顶点序号：3
+<span class="o">(</span><span class="m">5</span>/6<span class="o">)</span>输入数据为 <span class="m">5</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">88</span>
+<span class="o">(</span><span class="m">6</span>/6<span class="o">)</span>输入数据为 <span class="m">6</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">6</span>
+数据 <span class="m">6</span> 的顶点序号：5
+<span class="o">(</span><span class="m">6</span>/6<span class="o">)</span>输入数据为 <span class="m">6</span> 的顶点的邻接点<span class="o">(</span>输入88表示结束该顶点的邻接点关系输入<span class="o">)</span>: <span class="m">88</span>
+图创建完成...
+
+开始遍历图（广度优先遍历）...
+
+初始化队列...
+遍历到顶点：1 
+元素 <span class="m">0</span> 入队列...
+元素 <span class="m">0</span> 出队列...
+顶点 <span class="m">0</span> 的第一个邻接点是 <span class="m">3</span>
+遍历到顶点：4 
+元素 <span class="m">3</span> 入队列...
+顶点 <span class="m">0</span> ：当前邻接点 <span class="m">3</span> ，下一个邻接点是 <span class="m">1</span>
+遍历到顶点：2 
+元素 <span class="m">1</span> 入队列...
+元素 <span class="m">0</span> 出队列...
+顶点 <span class="m">3</span> 的第一个邻接点是 <span class="m">1</span>
+元素 <span class="m">3</span> 出队列...
+顶点 <span class="m">1</span> 的第一个邻接点是 <span class="m">4</span>
+遍历到顶点：5 
+元素 <span class="m">4</span> 入队列...
+元素 <span class="m">1</span> 出队列...
+顶点 <span class="m">4</span> 的第一个邻接点是 <span class="m">3</span>
+遍历到顶点：3 
+元素 <span class="m">2</span> 入队列...
+元素 <span class="m">2</span> 出队列...
+顶点 <span class="m">2</span> 的第一个邻接点是 <span class="m">4</span>
+遍历到顶点：6 
+元素 <span class="m">5</span> 入队列...
+元素 <span class="m">5</span> 出队列...
+顶点 <span class="m">5</span> 的第一个邻接点是 <span class="m">5</span>
+
+
+开始遍历图（深度优先遍历）...
+
+遍历到顶点：1 
+顶点 <span class="m">0</span> 的第一个邻接点是 <span class="m">3</span>
+遍历到顶点：4 
+顶点 <span class="m">3</span> 的第一个邻接点是 <span class="m">1</span>
+遍历到顶点：2 
+顶点 <span class="m">1</span> 的第一个邻接点是 <span class="m">4</span>
+遍历到顶点：5 
+顶点 <span class="m">4</span> 的第一个邻接点是 <span class="m">3</span>
+顶点 <span class="m">0</span> ：当前邻接点 <span class="m">3</span> ，下一个邻接点是 <span class="m">1</span>
+遍历到顶点：3 
+顶点 <span class="m">2</span> 的第一个邻接点是 <span class="m">4</span>
+遍历到顶点：6 
+顶点 <span class="m">5</span> 的第一个邻接点是 <span class="m">5</span>
+silvers@HP-ZHAN:/tmp$ 
+</code></pre></div></p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022 <a href="https://www.silvers.xyz">Silvers</a>,.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "search": "../../../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.8aa65030.min.js"></script>
+      
+    
+  </body>
+</html>
