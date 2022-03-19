@@ -1,0 +1,1157 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="silvers' blog">
+      
+      
+        <meta name="author" content="silvers">
+      
+      
+        <link rel="canonical" href="http://www.silvers.xyz/5G%E6%A0%B8%E5%BF%83%E7%BD%91%E5%90%88%E6%B3%95%E7%9B%91%E5%90%AC/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.1">
+    
+    
+      
+        <title>核心网合法监听（一） - silvers' blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.e8d9bf0c.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../resources/css/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href=".." title="silvers&#39; blog" class="md-header__button md-logo" aria-label="silvers' blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            silvers' blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              核心网合法监听（一）
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/MrSilvers/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="silvers&#39; blog" class="md-nav__button md-logo" aria-label="silvers' blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    silvers' blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/MrSilvers/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../baiduMap/" class="md-nav__link">
+        One
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    一、 什么是合法监听？
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    二、 合法监听在核心网里面涉及到什么内容？
+  </a>
+  
+    <nav class="md-nav" aria-label="二、 合法监听在核心网里面涉及到什么内容？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    核心网需要关注的流程（举例）
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#x1" class="md-nav__link">
+    三、X1接口及通信模型
+  </a>
+  
+    <nav class="md-nav" aria-label="三、X1接口及通信模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    a. 消息传递
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b" class="md-nav__link">
+    b. 时间要求及行为
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-faultts103-221-1-clause-53" class="md-nav__link">
+    c. 告警和错误(fault)(TS103 221-1 clause 5.3)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#x1_1" class="md-nav__link">
+    四、X1消息
+  </a>
+  
+    <nav class="md-nav" aria-label="四、X1消息">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-basic-message" class="md-nav__link">
+    a. Basic Message
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-message-type" class="md-nav__link">
+    b. Message Type
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-message-definitions-task-control" class="md-nav__link">
+    c. Message Definitions: task control
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-message-definitions-destination-control" class="md-nav__link">
+    d. Message Definitions: destination control
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e-message-definitions-getting-information-from-ne" class="md-nav__link">
+    e. Message Definitions: getting information from NE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f-message-definitions-reporting-issues-from-the-ne" class="md-nav__link">
+    f. Message Definitions: reporting issues from the NE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#g-message-definitions-pings-and-keepalives" class="md-nav__link">
+    g. Message Definitions: Pings and Keepalives
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#x1-error-response-message" class="md-nav__link">
+    X1 Error Response Message
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#x1_2" class="md-nav__link">
+    一个基本的x1消息流程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#x1_3" class="md-nav__link">
+    X1消息传输方式
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#li_t23" class="md-nav__link">
+    五、LI_T2/3接口
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#x23" class="md-nav__link">
+    六、X2/3消息
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-x1" class="md-nav__link">
+    附录 A - X1消息实例
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/MrSilvers/edit/master/docs/5G核心网合法监听.md" title="编辑此页" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+
+<h1 id="_1">核心网合法监听（一）<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>参考文档说明：</p>
+<ul>
+<li>TS33127 clause 6.2 描述各个网元（根据X1指令）的监听消息类型（如AMF的Registration消息、SMF的pDUSessionModification消息等）</li>
+<li>TS33128 clause 6.2 描述各个网元接收的X1消息格式及应产生的X2或X3消息格式</li>
+<li>ETSI TS103 280 描述LI接口的公共参数及参数校验规则</li>
+<li>ETSI TS102 221-1 描述X1消息</li>
+<li>ETSI TS102 221-2 描述X&#8532;消息</li>
+<li>TS_103_28_v020701.xsd 通用xs类型解释</li>
+<li>TS_103_221_-1_v010601.xsd X1协议专有xs类型解释</li>
+</ul>
+<p>本文将简单描述5G核心网的合法监听，后续将讲解合法监听X1和X2/X3消息的构造及编码</p>
+<h2 id="_2">一、 什么是合法监听？<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>合法监听是政府强制要求的，运营商需要提供一套接口给有关部门调用，以监听用户的行为。合法监听在核心网层面涉及到X&frac12;/3，T&#8532;接口，</p>
+<h2 id="_3">二、 合法监听在核心网里面涉及到什么内容？<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="../law.png" /></p>
+<p>ADMF: Administration Function, 提供CSP的合法监听的管理功能</p>
+<p>TF: 由LIPF提供，负责触发POI，发送拦截规则、转发规则、目标标识和相关信息（给POI）</p>
+<p>POI(NF/NE): 合法监听功能的实施者，负责按ADMF的要求采集数据，并通过X&#8532;接口发送给LEMF，有两种类型，一种是IRI-POI，产生xIRI（Intercept Related Information）消息通过X2接口发给MDF2；一种是CC-POI，产生xCC（Content of Communication）消息通过X3接口发给MDF3</p>
+<p>MDF:  调解和交付功能，执行必要的翻译、关联和调解，通过HI2和HI3接口将材料（IRI/CC）移交给LEMF，这部分功能可直接由NF/NE实现</p>
+<p>LI在核心网的具体架构：</p>
+<p><img alt="" src="../law2.png" /></p>
+<h3 id="_4">核心网需要关注的流程（举例）<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p><strong>Intercept-Related Information (IRI) from 5GC NFs</strong></p>
+<p>Intercept-related information also referred to as <strong>Events</strong> are triggered by activities detected at the Network Function and provided to the LI. The IRI Event are generated based on <strong>SUCI</strong> or <strong>PEI</strong> or <strong>GPSI</strong> (Generic Public Subscription Identifier) Identities.</p>
+<ul>
+<li>IRI Event applicable to the AMF are:</li>
+<li>Registration</li>
+<li>Deregistration</li>
+<li>Location update</li>
+<li>Start of interception with already registered UE.</li>
+<li>Unsuccessful communication attempt.</li>
+<li>IRI Event applicable to SMF/UPF include:</li>
+<li>PDU Session establishment</li>
+<li>PDU Session modification</li>
+<li>PDU Session release</li>
+<li>Start of interception with an established PDU Session</li>
+</ul>
+<p>Using above information Target identity, <strong>Time stamp</strong>, Correlation information, <strong>Location information</strong>, Session related information is provided to Law Enforcement Facility via <strong>MDF</strong> function.</p>
+<h2 id="x1">三、X1接口及通信模型<a class="headerlink" href="#x1" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="../law1.png" /></p>
+<h3 id="a">a. 消息传递<a class="headerlink" href="#a" title="Permanent link">&para;</a></h3>
+<p>NE或者ADMF都可能主动发起请求，大多数情况都是ADMF主动发起Request，少数情况NE会发起Request用于传递fault reports等消息.</p>
+<p><strong>消息容器</strong>：RequestContainer、ResponseContainer</p>
+<p>一个容器内的所有消息是同一时间（没有先后顺序）交付的（从同一个Requester到同一个Responder或从同一个Responder到同一个Requester）</p>
+<p><strong>注意</strong>：只有一个request或response消息也可以container内传送</p>
+<h3 id="b">b. 时间要求及行为<a class="headerlink" href="#b" title="Permanent link">&para;</a></h3>
+<p>Requester发送请求消息给Responder，要求Responder在TIME1时间内返回Response，TIME1通常可配置，默认为5s，Requester会等待TIME2时间，TIME2时间通常可配置，至少是2倍的TIME1，默认为15s</p>
+<p>若在TIME1时间内，Responder没有处理完Task或者Task处理失败，则返回OK - Acknowledged，一旦action完成或者Task失败，Responder（通常是NE）要主动发status report给对方，使用相同的XID或者DID，但这条消息拥有自己的X1TrancationID（由报告方生成）</p>
+<p><strong>注意</strong>：OK-Acknowledged消息只能用于Task的Activating、Modifying、Deleting或者其他Task，对于通过“RequestContainer”传输的请求收到的每个“OK - Acknowledged”响应，请求者（通常是ADMF）应实施逻辑以确保收到相关状态报告（通常来自NE）并完成交易或启动恢复程序（向NE发起新的Activating或Modifying或Deleting等请求）。</p>
+<p>若在TIME2时间内，Requester没有收到Responder的Response，或者没有收到NE的status report（OK-Acknowledge），Requester将假设Request发送失败或者Response接收失败。此时Requester可以考虑两种做法：1. 请求上个Task的XID的status，考虑是否需要ActivateTask、ModifyTask、DeactivateTask、DeactivateAllTasks；2. Requester考虑Re-send the Task（用新的Request以及新的X1TransactionID）</p>
+<h3 id="c-faultts103-221-1-clause-53">c. 告警和错误(fault)(TS103 221-1 clause 5.3)<a class="headerlink" href="#c-faultts103-221-1-clause-53" title="Permanent link">&para;</a></h3>
+<p>（1）告警是一次性问题，即由NE发给ADMF，然后不再占用X1接口。告警不用于影响流量的issue（例如丢失content或者intercept-related-related信息）。例如资源即将耗尽（该消息不能影响流量）、证书/密钥即将到期等情况</p>
+<p><strong>注意</strong>：告警需要使用issue-reporting messages类型的消息而不能用Status-Getting messages。出于审查原因，NE需要记录所有的告警</p>
+<p>（2）fault：NE发现问题并且尝试管理或纠正该问题，例如，流量丢失的问题被归类为fault</p>
+<h2 id="x1_1">四、X1消息<a class="headerlink" href="#x1_1" title="Permanent link">&para;</a></h2>
+<h3 id="a-basic-message">a. Basic Message<a class="headerlink" href="#a-basic-message" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th align="center">Field</th>
+<th align="center">Description</th>
+<th align="center">Format</th>
+<th align="center">M/O/C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">ADMF Identifier</td>
+<td align="center">对NE的唯一标识符 ,Required to match the details provided Recommendation [3]，the ADMF's X.509 certificate (see clause 8)</td>
+<td align="center">xs:token</td>
+<td align="center">M</td>
+</tr>
+<tr>
+<td align="center">NE Identifier</td>
+<td align="center">对ADMF的唯一标识符，equired to match the details provided Recommendation [3]，the ADMF's X.509 certificate (see clause 8)</td>
+<td align="center">xs:token</td>
+<td align="center">M</td>
+</tr>
+<tr>
+<td align="center">Message Timestamp</td>
+<td align="center">指示Requester发送该消息的time</td>
+<td align="center">QualifiedMicrosecondDateTime <br> xs:dateTime <br> 2017-10-06T18:46:21.247432Z</td>
+<td align="center">M</td>
+</tr>
+<tr>
+<td align="center">Version</td>
+<td align="center">用于编码时标识协议文档的版本</td>
+<td align="center">v1.7.1</td>
+<td align="center">M</td>
+</tr>
+<tr>
+<td align="center">X1 TranscationID</td>
+<td align="center">用于关联Request和Response</td>
+<td align="center">UUIDv4</td>
+<td align="center">C</td>
+</tr>
+</tbody>
+</table>
+<h3 id="b-message-type">b. Message Type<a class="headerlink" href="#b-message-type" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Task Control：</li>
+<li><strong>ActivateTask</strong></li>
+<li>ModifyTask</li>
+<li><strong>DeactivateTask</strong></li>
+<li>DeactivateAllTasks</li>
+<li>Destination Control：</li>
+<li><strong>CreateDestination</strong></li>
+<li>ModifyDestination</li>
+<li><strong>RemoveDestination</strong></li>
+<li>RemoveAllDestinations</li>
+<li>Getting Information from NE：</li>
+<li><strong>GetTaskDetails</strong></li>
+<li><strong>GetDestinationDetails</strong></li>
+<li>GetNEStatus</li>
+<li>GetAllDetails</li>
+<li><strong>ListAllDetails</strong></li>
+<li>Reporting issues from the NE</li>
+<li>ReportTaskIssue on given XID</li>
+<li>ReportDestinationIssue on given DID</li>
+<li>ReportNEIssue</li>
+<li><strong>Pings and Keepalives</strong></li>
+<li>Ping</li>
+<li>Keepalive</li>
+</ol>
+<h3 id="c-message-definitions-task-control">c. Message Definitions: task control<a class="headerlink" href="#c-message-definitions-task-control" title="Permanent link">&para;</a></h3>
+<p><strong>Direction</strong>: ADMF to NE</p>
+<p><strong>Request</strong>: </p>
+<table>
+<thead>
+<tr>
+<th align="center">Field</th>
+<th align="center">Description</th>
+<th align="center">Format</th>
+<th align="center">M/C/O</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">TaskDetails</td>
+<td align="center">目标和监听细节</td>
+<td align="center">见下表</td>
+<td align="center">M</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th align="center">Field</th>
+<th align="center">Description</th>
+<th align="center">Format</th>
+<th align="center">M/C/O</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">XID</td>
+<td align="center">任务的唯一标识</td>
+<td align="center">UUIDv4</td>
+<td align="center">M</td>
+</tr>
+<tr>
+<td align="center">TargetIdentifiers</td>
+<td align="center">标识要拦截的流量，如果存在多个标准，则需要匹配所有标准。如果 NE 不能根据指定的标准进行定位（例如，由于不支持的格式或标识符的不适当组合），则 NE 应以适当的错误拒绝该请求</td>
+<td align="center">见下表</td>
+<td align="center">M</td>
+</tr>
+<tr>
+<td align="center">DeliveryType</td>
+<td align="center">标识数据交付的时候是用X2还是X3接口</td>
+<td align="center">Enumerated value - one of "X2Only","X3Only" and "X2andX3".</td>
+<td align="center">M</td>
+</tr>
+<tr>
+<td align="center">ListOfDIDs</td>
+<td align="center">数据交付的目的地ID（DID），可以指定多个DID（如果NE支持）</td>
+<td align="center"></td>
+<td align="center">M</td>
+</tr>
+<tr>
+<td align="center">ListOfMediationDetails</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">C</td>
+</tr>
+<tr>
+<td align="center">CorrelationID</td>
+<td align="center">分配给此任务的截获材料的相关标识符。 用于触发场景，非中介功能网元应忽略。</td>
+<td align="center">Unsigned integer</td>
+<td align="center">O</td>
+</tr>
+<tr>
+<td align="center">ImplicitDeactivationAllowed</td>
+<td align="center">指示当Task已经完成的时候，NE可以自动deactivate该Task，当Task被NE自动deactivate的时候，NE需要报告合适的TaskReportType的ReportTaskIssue消息</td>
+<td align="center">Boolean</td>
+<td align="center">O</td>
+</tr>
+<tr>
+<td align="center">ProductID</td>
+<td align="center">提供时，接收实体应根据ETSI TS 103 221-2 clause5.2.7节使用它来填充X2/X3 XID报头，而不是任务的XID。如果未提供，则应使用任务的XID</td>
+<td align="center">UUIDv4</td>
+<td align="center">O</td>
+</tr>
+<tr>
+<td align="center">TaskDetailsExtensions</td>
+<td align="center">拓展占位符（一个或多个）</td>
+<td align="center"></td>
+<td align="center">O</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意</strong>：If a Task has an invalid combination of DeliveryType and Destinations (e.g. "X2andX3" delivery specified, but only an X2 Destination given), then the NE shall reject the ActivateTaskRequest with an appropriate error.</p>
+<p>表 TargetIdentifier Formats:（不全）</p>
+<table>
+<thead>
+<tr>
+<th align="center">Field</th>
+<th align="center">Description</th>
+<th align="center">Format</th>
+<th align="center">M/C/O</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">IMSI</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">IMEI</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">MAC Address</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">IPv4 Address</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">IPv6 Address</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">TCP Port</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">UDP Port</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">TCP PortRange</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">UDP PortRange</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">EmailAddress</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">IMPU</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">IMPI</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">NAI</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">GTPUTunnelId</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">GTPCTunnelId</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">SUPIIMSI</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">SUPINAI</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">SUCI</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response</strong>: </p>
+<table>
+<thead>
+<tr>
+<th align="center">Field</th>
+<th align="center">Description</th>
+<th align="center">Format</th>
+<th align="center">M/C/O</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">OK or Error</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">M</td>
+</tr>
+</tbody>
+</table>
+<p>一般来说，AMF比较简单，只需要XID、Targetdentifiers、DeliveryType、ListOfDIDs、TaskDetailsExtensions(IdentifierAssociationExtensions)</p>
+<p>详情见TS33128 clause 6.2.2</p>
+<h3 id="d-message-definitions-destination-control">d. Message Definitions: destination control<a class="headerlink" href="#d-message-definitions-destination-control" title="Permanent link">&para;</a></h3>
+<p><strong>Direction</strong>: ADMF to NE</p>
+<p><strong>Request</strong>: </p>
+<table>
+<thead>
+<tr>
+<th align="center">Field</th>
+<th align="center">Description</th>
+<th align="center">Format</th>
+<th align="center">M/C/O</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Destination details</td>
+<td align="center">新目的地的详情</td>
+<td align="center"></td>
+<td align="center">M</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th align="center">Field</th>
+<th align="center">Description</th>
+<th align="center">Format</th>
+<th align="center">M/C/O</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">DID</td>
+<td align="center"></td>
+<td align="center">UUIDv4</td>
+<td align="center">M</td>
+</tr>
+<tr>
+<td align="center">FriendlyName</td>
+<td align="center"></td>
+<td align="center">string</td>
+<td align="center">O</td>
+</tr>
+<tr>
+<td align="center">DeliveryType</td>
+<td align="center">标识数据交付的时候是用X2还是X3接口</td>
+<td align="center">Enumerated value - one of "X2Only", "X3Only" and "X2andX3"，X2Only和X3Only最常用</td>
+<td align="center">M</td>
+</tr>
+<tr>
+<td align="center">DeliveryAddress</td>
+<td align="center">交付地址</td>
+<td align="center">见下表</td>
+<td align="center">M</td>
+</tr>
+<tr>
+<td align="center">DestinationDetailsExtensions</td>
+<td align="center">拓展占位符（一个或多个）</td>
+<td align="center"></td>
+<td align="center">O</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+<th>Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IPAddressAndPort</td>
+<td>需支持IPv4/IPv6，只能包含一个地址和端口</td>
+<td></td>
+</tr>
+<tr>
+<td>E164Number</td>
+<td>E.164 目的地</td>
+<td></td>
+</tr>
+<tr>
+<td>URI</td>
+<td>如FQDN或者其他形式的URI</td>
+<td></td>
+</tr>
+<tr>
+<td>EmailAddress</td>
+<td>Email 地址</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response</strong>: </p>
+<table>
+<thead>
+<tr>
+<th align="center">Field</th>
+<th align="center">Description</th>
+<th align="center">Format</th>
+<th align="center">M/C/O</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">OK or Error</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">M</td>
+</tr>
+</tbody>
+</table>
+<h3 id="e-message-definitions-getting-information-from-ne">e. Message Definitions: getting information from NE<a class="headerlink" href="#e-message-definitions-getting-information-from-ne" title="Permanent link">&para;</a></h3>
+<h3 id="f-message-definitions-reporting-issues-from-the-ne">f. Message Definitions: reporting issues from the NE<a class="headerlink" href="#f-message-definitions-reporting-issues-from-the-ne" title="Permanent link">&para;</a></h3>
+<h3 id="g-message-definitions-pings-and-keepalives">g. Message Definitions: Pings and Keepalives<a class="headerlink" href="#g-message-definitions-pings-and-keepalives" title="Permanent link">&para;</a></h3>
+<h3 id="x1-error-response-message">X1 Error Response Message<a class="headerlink" href="#x1-error-response-message" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th align="center">Field</th>
+<th align="center">Description</th>
+<th align="center">Format</th>
+<th align="center">M/C/O</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">RequestMessageType</td>
+<td align="center">指示对应的是哪个Request</td>
+<td align="center">One of the following: "ActivateTask",<br/>"ModifyTask", "DeactivateTask",<br/>"DeactivateAllTasks", "GetTaskDetails",<br/>"CreateDestination", "ModifyDestination",<br/>"RemoveDestination",<br/>"RemoveAllDestinations",<br/>"GetDestinationDetails", "GetNEStatus",<br/>"GetAllDetails", "ListAllDetails",<br/>"ReportTaskIssue", "ReportDestinationIssue",<br/>"ReportNEIssue", "Ping", "Keepalive"</td>
+<td align="center">M</td>
+</tr>
+<tr>
+<td align="center">ErrorInformation</td>
+<td align="center">错误码及可选的错误描述</td>
+<td align="center">见下表</td>
+<td align="center">M</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th align="center">Field</th>
+<th align="center">Description</th>
+<th align="center">Format</th>
+<th align="center">M/C/O</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">ErrorCode</td>
+<td align="center">标识哪种类型的错误，见ETSI TS103221-1 caluse 6.7, Table 46</td>
+<td align="center">Integer</td>
+<td align="center">M</td>
+</tr>
+<tr>
+<td align="center">ErrorDescription</td>
+<td align="center">Free text field giving further details of the error. Implementers are<br/>encouraged to avoid placing sensitive information (such as personally<br/>identifiably information or sensitive details of the network) in error<br/>messages.</td>
+<td align="center">UTF-8 string</td>
+<td align="center">C</td>
+</tr>
+</tbody>
+</table>
+<h3 id="x1_2">一个基本的x1消息流程<a class="headerlink" href="#x1_2" title="Permanent link">&para;</a></h3>
+<p>从本章的c节部分对task消息的定义描述看，一个task在被activate的时候会指定destination的id列表，也就是ListOfDIDs，而DID是uuid标识，不是目标机器的ip或者域名，NE这个时候是无法把生成的xIRI或xCC消息发给指定的目标的。</p>
+<p>x1协议还定义了一种消息类型叫destination control，本章的d节部分是对destination的描述，destination支持ip地址、email等方式指定目标机器。</p>
+<p>所以，在activate一个task之前，需要先create一个destination，告诉NE所有可能接收x&#8532;消息的目标的ID和真实地址，NE回复一个resp，然后才对NE下达具体的监听任务，指定需要交付的目标的id，NE回复一个resp。这样，一个最基本的X1消息流程就完成了</p>
+<h3 id="x1_3">X1消息传输方式<a class="headerlink" href="#x1_3" title="Permanent link">&para;</a></h3>
+<p>使用HTTPS进行传输。其中，HTTPS使用基于HTTP+TLS的方案，HTTP需使用HTTP1.1或HTTP2</p>
+<p><strong>注意：</strong></p>
+<p>HTTP 状态码仅用于表示HTTP层的传输结果，不作为X1的Error Message的结果，所以无论X1消息内容如何，HTTP Status 都应该为200 OK</p>
+<h2 id="li_t23">五、LI_T&#8532;接口<a class="headerlink" href="#li_t23" title="Permanent link">&para;</a></h2>
+<p>LI_T&#8532;适用于Triggering deployment model，即触发器模型，如下所示</p>
+<p><img alt="" src="../law3.png" /></p>
+<p>LI_T&#8532;接口同样使用X1消息进行通信。因为一些数据的产生是需要条件触发的，例如当SMF检测到UE建立了一条PDU session的时候，SMF需要触发UPF进行该UE的合法监听（When the CC-TF in the SMF detects that a PDU session is being established for a target UE (i.e. when the SMF sends the N4: Session Establishment Request), it shall send an activation message to the CC-POI in the UPF over the LI_T3 interface. ）</p>
+<p><strong>如何确定使用T2还是T3接口？</strong></p>
+<p>首先，LEA不要求监听通信内容，但可能要求需要用户面数据包的IRI消息（这些消息必须从用户面数据包中导出）</p>
+<p>To support the generation of related xIRI (i.e. that requires access to the user plane packets), the present document supports two implementation approaches:（TS33127-h20 clause 7.12.2.3）
+- In approach 1, xIRI (that includes the correlation number and the target identity) is generated by the IRI-POI in the UP Entity. The IRI-POI generates the xIRI from the user plane packets and sends it to the MDF2. The MDF2 generates the IRI messages and sends them to the LEMF.</p>
+<p><img alt="" src="../law4.png" /></p>
+<ul>
+<li>In approach 2, xCC is generated by the CC-POI in the UP Entity as if the warrant involves the interception of communication contents. To enable this, the CC-POI is presumed to be present and provisioned in the UP Entity even when the warrant does not require the interception of communication contents. The CC-POI generates the xCC and sends it to the MDF3. The MDF3 (based on the provisioned intercept information) does not generate and deliver the CC to the LEMF. Instead, the MDF3 forwards the xCC to the MDF2 over LI_MDF interface. The MDF2 then generates the IRI messages from xCC and delivers those IRI messages to the LEMF.</li>
+</ul>
+<p><img alt="" src="../law5.png" /></p>
+<p>In 5GS and CUPS EPS, the POI in the UP Entity requires a trigger to enable it to detect the user plane packets. The corresponding Triggering Function (IRI-TF or CC-TF) resides in the CP Entity that has the IRI-POI for the generation of other xIRI. The trigger sent by the IRI-TF or CC-TF to the corresponding POI includes the following:</p>
+<ul>
+<li>User plane packet detection rules.</li>
+<li>Target identity.</li>
+<li>Correlation information.</li>
+<li>MDF2 (in approach 1) or MDF3 (in approach 2) address.</li>
+</ul>
+<p>这两种方式都可以产生xIRI消息，如果是approach1，则使用LI_T2接口；如果是approach2，则使用LI_T3接口。</p>
+<p>SMF使用T2或T3接口的详情见TS33128 caluse 6.2.3.3及TS33128 caluse 6.2.3.4</p>
+<p>UPF的生成xCC及xIRI消息的详情见TS33128 caluse 6.2.3.5及TS33128 caluse 6.2.3.6</p>
+<h2 id="x23">六、X&#8532;消息<a class="headerlink" href="#x23" title="Permanent link">&para;</a></h2>
+<p>5G核心网基本事件：</p>
+<table>
+<thead>
+<tr>
+<th align="center">AMF（TS33128 clause）</th>
+<th align="center">SMF（TS33128 clause6.2.3.2）</th>
+<th align="center">UDM（TS33128 clause）</th>
+<th align="center">UPF（TS33128 clause）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">AMFRegistration</td>
+<td align="center">SMFPDUSessionEstablishment</td>
+<td align="center">UDMServingSystemMessage</td>
+<td align="center">PDHeaderReport</td>
+</tr>
+<tr>
+<td align="center">AMFDeregistration</td>
+<td align="center">SMFPDUSessionModification</td>
+<td align="center"></td>
+<td align="center">PDSummaryReport</td>
+</tr>
+<tr>
+<td align="center">AMFLocationUpdate</td>
+<td align="center">SMFPDUSessionRelease</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">AMFStartOfInterceptionWithRegisteredUE</td>
+<td align="center">SMFStartOfInterceptionWithEstablishedPDUSession</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">AMFUnsuccessfulProcedure</td>
+<td align="center">SMFUnsuccessfulProcedure</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<p>条件事件（不全）：</p>
+<table>
+<thead>
+<tr>
+<th align="center">AMF</th>
+<th align="center">SMF</th>
+<th align="center">UDM</th>
+<th align="center">UPF</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">AMFIdentifierAssociation</td>
+<td align="center">SMFMAPDUSessionEstablishment</td>
+<td align="center">UDMSubscriberRecordChangeMessage</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">SMFMAPDUSessionModification</td>
+<td align="center">UDMCancelLocationMessage</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">SMFMAPDUSessionRelease</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">SMFMAUnsuccessfulProcedure</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">SMFPDUtoMAPDUSessionModification</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<p>xIRI消息的更多详情可以查阅3GPP TS33128协议Annex A章节ASN.1描述及ETSI TS103221-2文档</p>
+<h2 id="a-x1">附录 A - X1消息实例<a class="headerlink" href="#a-x1" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; ?&gt;</span>
+<span class="nt">&lt;ns1:X1Request</span> <span class="na">xmlns:ns1=</span><span class="s">&quot;http://uri.etsi.org/03221/X1/2017/10&quot;</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;ns1:x1RequestMessage</span> <span class="na">xsi:type=</span><span class="s">&quot;ns1:ActivateTaskRequest&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;ns1:admfIdentifier&gt;</span>admfID<span class="nt">&lt;/ns1:admfIdentifier&gt;</span>
+    <span class="nt">&lt;ns1:neIdentifier&gt;</span>neID<span class="nt">&lt;/ns1:neIdentifier&gt;</span>
+    <span class="nt">&lt;ns1:messageTimestamp&gt;</span>2017-10-06T18:46:21.247432Z<span class="nt">&lt;/ns1:messageTimestamp&gt;</span>
+    <span class="nt">&lt;ns1:version&gt;</span>v1.6.1<span class="nt">&lt;/ns1:version&gt;</span>
+    <span class="nt">&lt;ns1:x1TransactionId&gt;</span>3741800e-971b-4aa9-85f4-466d2b1adc7f<span class="nt">&lt;/ns1:x1TransactionId&gt;</span>
+    <span class="nt">&lt;ns1:taskDetails&gt;</span>
+      <span class="nt">&lt;ns1:xId&gt;</span>29f28e1c-f230-486a-a860-f5a784ab9172<span class="nt">&lt;/ns1:xId&gt;</span>
+      <span class="nt">&lt;ns1:targetIdentifiers&gt;</span>
+        <span class="nt">&lt;ns1:targetIdentifier&gt;</span>
+          <span class="nt">&lt;ns1:e164Number&gt;</span>447700900000<span class="nt">&lt;/ns1:e164Number&gt;</span>
+        <span class="nt">&lt;/ns1:targetIdentifier&gt;</span>
+      <span class="nt">&lt;/ns1:targetIdentifiers&gt;</span>
+      <span class="nt">&lt;ns1:deliveryType&gt;</span>X2andX3<span class="nt">&lt;/ns1:deliveryType&gt;</span>
+      <span class="nt">&lt;ns1:listOfDIDs&gt;</span>
+        <span class="nt">&lt;ns1:dId&gt;</span>19867c20-8c94-473e-b9cd-8b72b7b05fd4<span class="nt">&lt;/ns1:dId&gt;</span>
+      <span class="nt">&lt;/ns1:listOfDIDs&gt;</span>
+    <span class="nt">&lt;/ns1:taskDetails&gt;</span>
+  <span class="nt">&lt;/ns1:x1RequestMessage&gt;</span>
+<span class="nt">&lt;/ns1:X1Request&gt;</span>
+</code></pre></div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022 <a href="https://www.silvers.xyz">Silvers</a>,.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "search": "../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.8aa65030.min.js"></script>
+      
+    
+  </body>
+</html>
