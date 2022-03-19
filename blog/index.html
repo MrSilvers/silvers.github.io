@@ -12,14 +12,14 @@
         <meta name="author" content="silvers">
       
       
-        <link rel="canonical" href="http://www.silvers.xyz/baiduMap/">
+        <link rel="canonical" href="http://www.silvers.xyz/blog/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.1">
     
     
       
-        <title>One - silvers' blog</title>
+        <title>专栏 - silvers' blog</title>
       
     
     
@@ -70,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#-api" class="md-skip">
           跳转至
         </a>
       
@@ -103,7 +103,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              One
+              专栏
             
           </span>
         </div>
@@ -234,16 +234,14 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
-        
-      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          One
+          专栏
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        One
+        专栏
       </a>
       
         
@@ -251,8 +249,6 @@
 <nav class="md-nav md-nav--secondary" aria-label="目录">
   
   
-  
-    
   
   
     <label class="md-nav__title" for="__toc">
@@ -262,15 +258,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1api" class="md-nav__link">
-    1.使用百度地图api实现地点标注
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2api" class="md-nav__link">
-    2.使用百度地图api实现输入框自动提示
+  <a href="#-api" class="md-nav__link">
+    - 百度地图API尝试
   </a>
   
 </li>
@@ -279,6 +268,51 @@
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../idea/" class="md-nav__link">
+        想法
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../life/" class="md-nav__link">
+        生活
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aboutme/" class="md-nav__link">
+        关于我
+      </a>
     </li>
   
 
@@ -300,8 +334,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -310,15 +342,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1api" class="md-nav__link">
-    1.使用百度地图api实现地点标注
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2api" class="md-nav__link">
-    2.使用百度地图api实现输入框自动提示
+  <a href="#-api" class="md-nav__link">
+    - 百度地图API尝试
   </a>
   
 </li>
@@ -335,87 +360,15 @@
             <article class="md-content__inner md-typeset">
               
                 
-<a href="https://github.com/MrSilvers/edit/master/docs/baiduMap.md" title="编辑此页" class="md-content__button md-icon">
+<a href="https://github.com/MrSilvers/edit/master/docs/blog.md" title="编辑此页" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
 </a>
 
 
 
-<h1 id="_1">序<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>使用百度地图API开发应用，首先需要申请一个百度地图API的密钥，点击<a href="http://lbsyun.baidu.com/apiconsole/center#/home">百度开发者平台</a>进入到百度开发者平台，然后按照下列顺序一步一步的完成申请：<br />
-1.创建一个应用，填写应用名称<br />
-2.选择应用类型，这里使用的是浏览器端应用。<br />
-相信很多人会不清楚自己应该选用什么类型，这里我给大家一些解释：<br />
-服务端API为开发者提供http/https接口，即开发者通过http/https形式发起检索请求，获取返回json或xml格式的检索数据，不提供任何的图像和效果显示；<br />
-浏览器端API是由JavaScript语言编写的应用程序接口，可以帮助你在网站中构建功能丰富、交互性强的地图应用，支持PC端和移动端基于浏览器的地图应用开发，且支持HTML5特性的地图开发。简单来说就是由js封装的接口，可以在html或js文件中直接调用。<br />
-3.OK，解释完毕，下面勾选启用服务，一般全部打勾，以备不时之需。<br />
-4.接下来就是白名单，什么是白名单？就是只有在白名单列表上的地址才可以访问这个服务。在本地开发调试的时候，直接填个*就可以了，表示任何地址都可以访问，正式上线的时候，做一下限制就好了。接下来点击提交就ok了。<br />
-那么接下来如何调用百度地图API？<br />
-1.在html文件的头部<code>&lt;head&gt;</code>里面写入以下代码：<br />
-<code>&lt;script type="text/javascript" src="http://api.map.baidu.com/api?v=接口版本&amp;ak=你的密钥（ak）"&gt;&lt;/script&gt;</code><br />
-2.在html中创建容器，如下所示：<br />
-<code>&lt;div style="width:680px;height:550px;border:#ccc solid 1px;font-size:12px" id="map"&gt;&lt;/div&gt;</code><br />
-3.创建地图实例：在js文件或者html文件的<code>&lt;script&gt;&lt;/script&gt;</code>之间写入以下代码（示例）：  </p>
-<p><div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">BMap</span><span class="p">.</span><span class="nb">Map</span><span class="p">(</span><span class="s1">&#39;map&#39;</span><span class="p">);</span><span class="c1">//创建Map实例</span>
-<span class="kd">var</span> <span class="nx">point</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">BMap</span><span class="p">.</span><span class="nx">Point</span><span class="p">(</span><span class="mf">116</span><span class="p">,</span><span class="mf">28</span><span class="p">);</span><span class="c1">//创建坐标点</span>
-<span class="nx">map</span><span class="p">.</span><span class="nx">centerAndZoom</span><span class="p">(</span><span class="nx">point</span><span class="p">,</span><span class="mf">16</span><span class="p">);</span><span class="c1">//初始化地图，并且设置中心点和地图缩放级别</span>
-</code></pre></div>
-OK，这就是使用百度地图API的第一步，如果有些地方不懂的，请多看一下html和js的知识补充一下就好了。  </p>
-<h2 id="1api">1.使用百度地图api实现地点标注<a class="headerlink" href="#1api" title="Permanent link">&para;</a></h2>
-<p>在.html文件或者.js文件下的<code>&lt;script&gt;</code>和<code>&lt;/script&gt;</code>块之间插入下列代码  </p>
-<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">point</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">BMap</span><span class="p">.</span><span class="nx">Point</span><span class="p">(</span><span class="mf">116.038624</span><span class="p">,</span><span class="mf">28.695625</span><span class="p">);</span><span class="c1">//创建标注的位置</span>
-<span class="kd">var</span> <span class="nx">marker</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">BMap</span><span class="p">.</span><span class="nx">Marker</span><span class="p">(</span><span class="nx">point</span><span class="p">);</span><span class="c1">//创建标注</span>
-<span class="nx">map</span><span class="p">.</span><span class="nx">addOverlay</span><span class="p">(</span><span class="nx">marker</span><span class="p">);</span><span class="c1">// 将标注添加到地图中</span>
-<span class="kd">var</span> <span class="nx">opts</span> <span class="o">=</span> <span class="p">{</span>
-   <span class="nx">width</span> <span class="o">:</span> <span class="mf">200</span><span class="p">,</span>     <span class="c1">// 信息窗口宽度</span>
-   <span class="nx">height</span><span class="o">:</span> <span class="mf">100</span><span class="p">,</span>     <span class="c1">// 信息窗口高度</span>
-   <span class="nx">title</span> <span class="o">:</span> <span class="s2">&quot;南昌工程学院&quot;</span> <span class="p">,</span> <span class="c1">// 信息窗口标题</span>
-   <span class="nx">enableMessage</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span><span class="c1">//设置允许信息窗发送短息</span>
-<span class="p">}</span>
-<span class="kd">var</span> <span class="nx">infoWindow</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">BMap</span><span class="p">.</span><span class="nx">InfoWindow</span><span class="p">(</span><span class="s2">&quot;地址：江西省南昌市南昌工程学院&quot;</span><span class="p">,</span> <span class="nx">opts</span><span class="p">);</span>  <span class="c1">// 创建信息窗口对象 </span>
-<span class="c1">//标注增加鼠标事件监听</span>
- <span class="nx">marker</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>          
- <span class="nx">map</span><span class="p">.</span><span class="nx">openInfoWindow</span><span class="p">(</span><span class="nx">infoWindow</span><span class="p">,</span><span class="nx">point</span><span class="p">);</span> <span class="c1">//开启信息窗口</span>
- <span class="p">});</span>
-</code></pre></div>
-<h2 id="2api">2.使用百度地图api实现输入框自动提示<a class="headerlink" href="#2api" title="Permanent link">&para;</a></h2>
-<p>前端html代码</p>
-<p><div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;http://api.map.baidu.com/api?v=2.0&amp;ak=你的ak&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">h4</span> <span class="p">&gt;</span>增加地点<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">form</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>地点名字<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;suggestId&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;sendAddress&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span>  <span class="na">placeholder</span><span class="o">=</span><span class="s">&quot;输入地名/建筑物名字&quot;</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="p">&gt;</span>Submit<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="c1">//这里插入js代码</span>
-<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</code></pre></div>
-js代码<br />
-<div class="highlight"><pre><span></span><code><span class="nx">loadMapAutocomplete</span><span class="p">(</span><span class="s2">&quot;suggestId&quot;</span><span class="p">);</span>
+  <h1>专栏</h1>
 
-<span class="kd">function</span> <span class="nx">loadMapAutocomplete</span><span class="p">(</span><span class="nx">suggestId</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">checkValue</span><span class="p">;</span>
-    <span class="nx">Ac</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">BMap</span><span class="p">.</span><span class="nx">Autocomplete</span><span class="p">(</span> <span class="c1">//建立一个自动完成的对象</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;input&quot;</span><span class="o">:</span> <span class="nx">suggestId</span><span class="p">,</span>
-    <span class="p">});</span>
-    <span class="nx">Ac</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;onconfirm&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//鼠标点击下拉列表后的事件</span>
-        <span class="kd">var</span> <span class="nx">_value</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
-        <span class="nx">checkValue</span> <span class="o">=</span> <span class="nx">_value</span><span class="p">.</span><span class="nx">province</span> <span class="o">+</span> <span class="nx">_value</span><span class="p">.</span><span class="nx">city</span> <span class="o">+</span> <span class="nx">_value</span><span class="p">.</span><span class="nx">district</span> <span class="o">+</span> <span class="nx">_value</span><span class="p">.</span><span class="nx">street</span> <span class="o">+</span> <span class="nx">_value</span><span class="p">.</span><span class="nx">business</span><span class="p">;</span>
-        <span class="c1">//注：$(&quot;#&quot;)是jQuery用法，作用是根据标签id获取值或赋值，使用前请先引用jQuery</span>
-        <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#suggestId&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="nx">checkValue</span><span class="p">);</span><span class="c1">//点击地名后把地点信息显示到输入框上</span>
-    <span class="p">});</span>
-<span class="p">}</span>
-</code></pre></div></p>
+<h2 id="-api">- <a href="http://blog.silvers.xyz/blog/计算机/百度地图API尝试/">百度地图API尝试</a><a class="headerlink" href="#-api" title="Permanent link">&para;</a></h2>
 
               
             </article>
@@ -443,6 +396,21 @@ js代码<br />
           </div>
         </a>
       
+      
+        
+        <a href="../idea/" class="md-footer__link md-footer__link--next" aria-label="下一页: 想法" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              想法
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
       
     </nav>
   

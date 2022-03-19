@@ -6,12 +6,32 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://www.silvers.xyz/5G%E6%A0%B8%E5%BF%83%E7%BD%91%E5%90%88%E6%B3%95%E7%9B%91%E5%90%AC/</loc>
+         <loc>http://www.silvers.xyz/aboutme/</loc>
          <lastmod>2022-03-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://www.silvers.xyz/baiduMap/</loc>
+         <loc>http://www.silvers.xyz/blog/</loc>
+         <lastmod>2022-03-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>http://www.silvers.xyz/idea/</loc>
+         <lastmod>2022-03-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>http://www.silvers.xyz/life/</loc>
+         <lastmod>2022-03-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>http://www.silvers.xyz/blog/5G%E9%80%9A%E4%BF%A1/5G%E6%A0%B8%E5%BF%83%E7%BD%91%E5%90%88%E6%B3%95%E7%9B%91%E5%90%AC/</loc>
+         <lastmod>2022-03-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>http://www.silvers.xyz/blog/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E7%99%BE%E5%BA%A6%E5%9C%B0%E5%9B%BEAPI%E5%B0%9D%E8%AF%95/</loc>
          <lastmod>2022-03-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
