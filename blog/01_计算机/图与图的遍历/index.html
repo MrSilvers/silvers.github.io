@@ -12,7 +12,7 @@
         <meta name="author" content="silvers">
       
       
-        <link rel="canonical" href="http://www.silvers.xyz/blog/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E5%9B%BE%E4%B8%8E%E5%9B%BE%E7%9A%84%E9%81%8D%E5%8E%86/">
+        <link rel="canonical" href="http://www.silvers.xyz/blog/01_%E8%AE%A1%E7%AE%97%E6%9C%BA/%E5%9B%BE%E4%B8%8E%E5%9B%BE%E7%9A%84%E9%81%8D%E5%8E%86/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.1">
@@ -484,9 +484,9 @@
 <h4 id="121">1.2.1 有向图<a class="headerlink" href="#121" title="Permanent link">&para;</a></h4>
 <p>若 E 是有向边(也称弧)的有限集合时，则图 G 为有向图 。 弧是顶点的有序对，记为&lt; v, w &gt;，其中 v，w 是顶点， v 称为弧尾，w 称为弧 头，&lt; v, w &gt;称为从顶点 v 到顶点 w 的弧，也称 v 邻接到 w，或 w 邻接自 ν 。</p>
 <p>如下所示的有向图 G1 可表示为  </p>
-<p>G1 = (V,, £,)
-Vi={1,2,3}
-£1 = {&lt; 1, 2&gt;, &lt;2, 1 &gt;, &lt;2, 3&gt;}
+<p>G1 = (V1, E1)
+V1={1,2,3}
+E1 = {&lt; 1, 2&gt;, &lt;2, 1 &gt;, &lt;2, 3&gt;}
 <img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20210116141944625.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hEX2hhbw==,size_16,color_FFFFFF,t_70" /></p>
 <h4 id="122">1.2.2 无向图<a class="headerlink" href="#122" title="Permanent link">&para;</a></h4>
 <p>若 E 是无向边 (简称 边 )的有限集合时，则图 G 为无向图 。 边是顶点的无序对，记为 ( v, w)或(w, v)，因为(v, w) = (w, v)，其中 v, w 是顶 点。可以说顶点 w 和顶点 v 互 为邻接点。边( v, w)依附于顶点 w 和 v ,或者说边(ν, w)和顶点 v, w 相关联。</p>
@@ -497,7 +497,7 @@ E2 = {(1, 2), (1, 3), (1, 4), (2, 3), (2, 4), (3, 4)}
 <img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/20210116142047504.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hEX2hhbw==,size_16,color_FFFFFF,t_70" /></p>
 <h3 id="13">1.3 图的性质<a class="headerlink" href="#13" title="Permanent link">&para;</a></h3>
 <h4 id="131">1.3.1 连通图<a class="headerlink" href="#131" title="Permanent link">&para;</a></h4>
-<p>在无向图中，若从顶点 v 到顶点 w 有**路径**存在，则称 v 和 w 是连通的 。 若图 G 中任意两个顶点都是连通的，则称图 G 为连通图，否则称为非连通图。</p>
+<p>在无向图中，若从顶点 v 到顶点 w 有 <strong>路径</strong> 存在，则称 v 和 w 是连通的 。 若图 G 中任意两个顶点都是连通的，则称图 G 为连通图，否则称为非连通图。</p>
 <p>若一个图有 n 个顶点，并且边数小于 n - 1 ，则此图必是非连通图</p>
 <h2 id="_2">二、图的存储结构及基本操作<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>图的存储必须要完整、准确地反映顶点集和边集的信息 。 根据不同图的结构和算法 , 采用不同的存储方式将对程序的效率产生相当大的影响，因此所选的存储结构应适合于欲求解的问题 。</p>
