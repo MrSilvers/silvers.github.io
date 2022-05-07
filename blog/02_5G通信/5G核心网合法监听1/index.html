@@ -376,71 +376,112 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#a-basic-message" class="md-nav__link">
-    a. Basic Message
+  <a href="#41-basic-message" class="md-nav__link">
+    4.1 Basic Message
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#b-message-type" class="md-nav__link">
-    b. Message Type
+  <a href="#42-message-type" class="md-nav__link">
+    4.2 Message Type
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 Message Type">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#421-task-control" class="md-nav__link">
+    4.2.1 Task Control：
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#c-message-definitions-task-control" class="md-nav__link">
-    c. Message Definitions: task control
+  <a href="#422-destination-control" class="md-nav__link">
+    4.2.2 Destination Control：
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#d-message-definitions-destination-control" class="md-nav__link">
-    d. Message Definitions: destination control
+  <a href="#423-getting-information-from-ne" class="md-nav__link">
+    4.2.3 Getting Information from NE：
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#e-message-definitions-getting-information-from-ne" class="md-nav__link">
-    e. Message Definitions: getting information from NE
+  <a href="#424-reporting-issues-from-the-ne" class="md-nav__link">
+    4.2.4 Reporting issues from the NE
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#f-message-definitions-reporting-issues-from-the-ne" class="md-nav__link">
-    f. Message Definitions: reporting issues from the NE
+  <a href="#425-pings-and-keepalives" class="md-nav__link">
+    4.2.5 Pings and Keepalives
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-message-definitions-task-control" class="md-nav__link">
+    4.3 Message Definitions: task control
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#g-message-definitions-pings-and-keepalives" class="md-nav__link">
-    g. Message Definitions: Pings and Keepalives
+  <a href="#44-message-definitions-destination-control" class="md-nav__link">
+    4.4 Message Definitions: destination control
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#x1-error-response-message" class="md-nav__link">
-    X1 Error Response Message
+  <a href="#45-message-definitions-getting-information-from-ne" class="md-nav__link">
+    4.5 Message Definitions: getting information from NE
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#x1_2" class="md-nav__link">
-    一个基本的x1消息流程
+  <a href="#46-message-definitions-reporting-issues-from-the-ne" class="md-nav__link">
+    4.6 Message Definitions: reporting issues from the NE
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#x1_3" class="md-nav__link">
-    X1消息传输方式
+  <a href="#47-message-definitions-pings-and-keepalives" class="md-nav__link">
+    4.7 Message Definitions: Pings and Keepalives
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#48-x1-error-response-message" class="md-nav__link">
+    4.8 X1 Error Response Message
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#49-x1" class="md-nav__link">
+    4.9 一个基本的x1消息流程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#410-x1" class="md-nav__link">
+    4.10 X1消息传输方式
   </a>
   
 </li>
@@ -541,7 +582,7 @@
 <p><strong>注意</strong>：告警需要使用issue-reporting messages类型的消息而不能用Status-Getting messages。出于审查原因，NE需要记录所有的告警</p>
 <p>（2）fault：NE发现问题并且尝试管理或纠正该问题，例如，流量丢失的问题被归类为fault</p>
 <h2 id="x1_1">四、X1消息<a class="headerlink" href="#x1_1" title="Permanent link">&para;</a></h2>
-<h3 id="a-basic-message">a. Basic Message<a class="headerlink" href="#a-basic-message" title="Permanent link">&para;</a></h3>
+<h3 id="41-basic-message">4.1 Basic Message<a class="headerlink" href="#41-basic-message" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -584,33 +625,41 @@
 </tr>
 </tbody>
 </table>
-<h3 id="b-message-type">b. Message Type<a class="headerlink" href="#b-message-type" title="Permanent link">&para;</a></h3>
-<ol>
-<li>Task Control：</li>
+<h3 id="42-message-type">4.2 Message Type<a class="headerlink" href="#42-message-type" title="Permanent link">&para;</a></h3>
+<h4 id="421-task-control">4.2.1 Task Control：<a class="headerlink" href="#421-task-control" title="Permanent link">&para;</a></h4>
+<ul>
 <li><strong>ActivateTask</strong></li>
 <li>ModifyTask</li>
 <li><strong>DeactivateTask</strong></li>
 <li>DeactivateAllTasks</li>
-<li>Destination Control：</li>
+</ul>
+<h4 id="422-destination-control">4.2.2 Destination Control：<a class="headerlink" href="#422-destination-control" title="Permanent link">&para;</a></h4>
+<ul>
 <li><strong>CreateDestination</strong></li>
 <li>ModifyDestination</li>
 <li><strong>RemoveDestination</strong></li>
 <li>RemoveAllDestinations</li>
-<li>Getting Information from NE：</li>
+</ul>
+<h4 id="423-getting-information-from-ne">4.2.3 Getting Information from NE：<a class="headerlink" href="#423-getting-information-from-ne" title="Permanent link">&para;</a></h4>
+<ul>
 <li><strong>GetTaskDetails</strong></li>
 <li><strong>GetDestinationDetails</strong></li>
 <li>GetNEStatus</li>
 <li>GetAllDetails</li>
 <li><strong>ListAllDetails</strong></li>
-<li>Reporting issues from the NE</li>
+</ul>
+<h4 id="424-reporting-issues-from-the-ne">4.2.4 Reporting issues from the NE<a class="headerlink" href="#424-reporting-issues-from-the-ne" title="Permanent link">&para;</a></h4>
+<ul>
 <li>ReportTaskIssue on given XID</li>
 <li>ReportDestinationIssue on given DID</li>
 <li>ReportNEIssue</li>
-<li><strong>Pings and Keepalives</strong></li>
+</ul>
+<h4 id="425-pings-and-keepalives">4.2.5 <strong>Pings and Keepalives</strong><a class="headerlink" href="#425-pings-and-keepalives" title="Permanent link">&para;</a></h4>
+<ul>
 <li>Ping</li>
 <li>Keepalive</li>
-</ol>
-<h3 id="c-message-definitions-task-control">c. Message Definitions: task control<a class="headerlink" href="#c-message-definitions-task-control" title="Permanent link">&para;</a></h3>
+</ul>
+<h3 id="43-message-definitions-task-control">4.3 Message Definitions: task control<a class="headerlink" href="#43-message-definitions-task-control" title="Permanent link">&para;</a></h3>
 <p><strong>Direction</strong>: ADMF to NE</p>
 <p><strong>Request</strong>: </p>
 <table>
@@ -840,7 +889,7 @@
 </table>
 <p>一般来说，AMF比较简单，只需要XID、Targetdentifiers、DeliveryType、ListOfDIDs、TaskDetailsExtensions(IdentifierAssociationExtensions)</p>
 <p>详情见TS33128 clause 6.2.2</p>
-<h3 id="d-message-definitions-destination-control">d. Message Definitions: destination control<a class="headerlink" href="#d-message-definitions-destination-control" title="Permanent link">&para;</a></h3>
+<h3 id="44-message-definitions-destination-control">4.4 Message Definitions: destination control<a class="headerlink" href="#44-message-definitions-destination-control" title="Permanent link">&para;</a></h3>
 <p><strong>Direction</strong>: ADMF to NE</p>
 <p><strong>Request</strong>: </p>
 <table>
@@ -953,10 +1002,10 @@
 </tr>
 </tbody>
 </table>
-<h3 id="e-message-definitions-getting-information-from-ne">e. Message Definitions: getting information from NE<a class="headerlink" href="#e-message-definitions-getting-information-from-ne" title="Permanent link">&para;</a></h3>
-<h3 id="f-message-definitions-reporting-issues-from-the-ne">f. Message Definitions: reporting issues from the NE<a class="headerlink" href="#f-message-definitions-reporting-issues-from-the-ne" title="Permanent link">&para;</a></h3>
-<h3 id="g-message-definitions-pings-and-keepalives">g. Message Definitions: Pings and Keepalives<a class="headerlink" href="#g-message-definitions-pings-and-keepalives" title="Permanent link">&para;</a></h3>
-<h3 id="x1-error-response-message">X1 Error Response Message<a class="headerlink" href="#x1-error-response-message" title="Permanent link">&para;</a></h3>
+<h3 id="45-message-definitions-getting-information-from-ne">4.5 Message Definitions: getting information from NE<a class="headerlink" href="#45-message-definitions-getting-information-from-ne" title="Permanent link">&para;</a></h3>
+<h3 id="46-message-definitions-reporting-issues-from-the-ne">4.6 Message Definitions: reporting issues from the NE<a class="headerlink" href="#46-message-definitions-reporting-issues-from-the-ne" title="Permanent link">&para;</a></h3>
+<h3 id="47-message-definitions-pings-and-keepalives">4.7 Message Definitions: Pings and Keepalives<a class="headerlink" href="#47-message-definitions-pings-and-keepalives" title="Permanent link">&para;</a></h3>
+<h3 id="48-x1-error-response-message">4.8 X1 Error Response Message<a class="headerlink" href="#48-x1-error-response-message" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1005,11 +1054,11 @@
 </tr>
 </tbody>
 </table>
-<h3 id="x1_2">一个基本的x1消息流程<a class="headerlink" href="#x1_2" title="Permanent link">&para;</a></h3>
+<h3 id="49-x1">4.9 一个基本的x1消息流程<a class="headerlink" href="#49-x1" title="Permanent link">&para;</a></h3>
 <p>从本章的c节部分对task消息的定义描述看，一个task在被activate的时候会指定destination的id列表，也就是ListOfDIDs，而DID是uuid标识，不是目标机器的ip或者域名，NE这个时候是无法把生成的xIRI或xCC消息发给指定的目标的。</p>
 <p>x1协议还定义了一种消息类型叫destination control，本章的d节部分是对destination的描述，destination支持ip地址、email等方式指定目标机器。</p>
 <p>所以，在activate一个task之前，需要先create一个destination，告诉NE所有可能接收x&#8532;消息的目标的ID和真实地址，NE回复一个resp，然后才对NE下达具体的监听任务，指定需要交付的目标的id，NE回复一个resp。这样，一个最基本的X1消息流程就完成了</p>
-<h3 id="x1_3">X1消息传输方式<a class="headerlink" href="#x1_3" title="Permanent link">&para;</a></h3>
+<h3 id="410-x1">4.10 X1消息传输方式<a class="headerlink" href="#410-x1" title="Permanent link">&para;</a></h3>
 <p>使用HTTPS进行传输。其中，HTTPS使用基于HTTP+TLS的方案，HTTP需使用HTTP1.1或HTTP2</p>
 <p><strong>注意：</strong></p>
 <p>HTTP 状态码仅用于表示HTTP层的传输结果，不作为X1的Error Message的结果，所以无论X1消息内容如何，HTTP Status 都应该为200 OK</p>
